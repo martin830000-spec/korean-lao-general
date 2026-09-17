@@ -1,8 +1,8 @@
 {
-  "version": "G1.0.0-RC1.6",
-  "buildId": "20260918-RC1.6-VERIFY-NAV-1",
+  "version": "G1.0.0-RC1.7",
+  "buildId": "20260918-RC1.7-UI-MANUAL-HISTORY-1",
   "channel": "general-test",
-  "stage": "verify-layout-simple-timing-nav-labels",
+  "stage": "ui-manual-version-history-collapse",
   "model": "gemini-3.8-flash",
   "stt": "google-chirp-3",
   "tts": "azure-neural",
