@@ -1,8 +1,8 @@
 {
-  "version": "G1.0.0-RC1.4",
-  "buildId": "20260918-RC1.4-MAIN-PARITY-1",
+  "version": "G1.0.0-RC1.5",
+  "buildId": "20260918-RC1.5-STT-UX-180VIEW-1",
   "channel": "general-test",
-  "stage": "v36195-main-behavior-parity-general-conversation",
+  "stage": "stt-keyboard-reset-rotated-large-view",
   "model": "gemini-3.8-flash",
   "stt": "google-chirp-3",
   "tts": "azure-neural",
