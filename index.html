@@ -4,156 +4,91 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f7fb">
-<title>한국어 ↔ 라오어 일반대화</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>한국어 ↔ 라오어 일반대화 · G1.0.0-RC1</title>
 <style>
-:root{
-  --bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#697386;--line:#e6eaf0;
-  --accent:#3157d5;--accent2:#203d9b;--soft:#eef2ff;--danger:#b42318;
-  --shadow:0 10px 30px rgba(25,39,72,.08);--r:18px;
-}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR","Noto Sans Lao",Arial,sans-serif}
-body{padding:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
-button,textarea{font:inherit}
-.app{width:min(760px,100%);margin:0 auto}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
-.brand{display:flex;align-items:center;gap:9px;min-width:0}
-.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#3157d5,#6a7de6);display:grid;place-items:center;color:white;font-size:20px;box-shadow:var(--shadow)}
-.title-wrap{min-width:0}.title{font-weight:800;font-size:17px;line-height:1.2}.subtitle{color:var(--muted);font-size:11px;margin-top:3px}
-.badge{flex:0 0 auto;font-size:10px;font-weight:800;color:var(--accent2);background:var(--soft);border:1px solid #dce3ff;border-radius:999px;padding:6px 8px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
-.direction-card{padding:14px;margin-bottom:10px}
-.direction{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
-.lang{text-align:center;border:1px solid var(--line);border-radius:14px;padding:11px 8px;background:#fbfcff}
-.lang .flag{font-size:23px}.lang .name{font-weight:800;font-size:14px;margin-top:4px}.lang .role{font-size:10px;color:var(--muted);margin-top:3px}
-.swap{border:0;border-radius:50%;width:44px;height:44px;background:var(--accent);color:#fff;font-size:21px;font-weight:900;box-shadow:0 6px 16px rgba(49,87,213,.22);cursor:pointer}
-.swap:active{transform:scale(.97)}
-.tip{text-align:center;color:var(--muted);font-size:10px;margin-top:9px}
-.input-card{padding:14px;margin-bottom:10px}
-.section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.section-title{font-size:13px;font-weight:800}.charcount{font-size:10px;color:var(--muted)}
-textarea{width:100%;min-height:124px;resize:vertical;border:1px solid var(--line);border-radius:14px;padding:13px 14px;color:var(--text);background:#fcfdff;outline:none;line-height:1.55;font-size:16px}
-textarea:focus{border-color:#9aaaf2;box-shadow:0 0 0 3px #eef2ff}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.btn{border:0;border-radius:13px;min-height:48px;padding:10px 12px;font-weight:800;cursor:pointer}
-.btn.primary{background:var(--accent);color:#fff}.btn.secondary{background:#eef1f6;color:#263248}.btn:active{transform:translateY(1px)}
-.btn.recording{background:#b42318!important;color:#fff!important}.btn.processing{background:#7a5c00!important;color:#fff!important}.btn:disabled{opacity:.6;cursor:default;transform:none}
-.voice-status{display:none;margin-top:8px;padding:8px 10px;border-radius:11px;background:#f8f9fc;border:1px solid var(--line);font-size:11px;color:#59657b;line-height:1.45}.voice-status.show{display:block}
-.output-card{padding:14px;margin-bottom:10px}
-.output{min-height:118px;border-radius:14px;background:#f8faff;border:1px solid #e5eaff;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:22px;line-height:1.55;font-weight:700;word-break:break-word;white-space:pre-wrap}
-.output.empty{color:#98a2b3;font-size:14px;font-weight:600}
-.output-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.verify{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
-.verify button{width:100%;border:0;background:transparent;text-align:left;padding:3px 1px;color:#43516b;font-weight:800;cursor:pointer}
-.verify-body{display:none;margin-top:8px;border:1px dashed #ccd5ea;background:#fafbfe;border-radius:12px;padding:11px;color:#697386;font-size:13px;line-height:1.55;white-space:pre-wrap}
-.verify.open .verify-body{display:block}
-.history-card{padding:12px 14px}
-.history-head{display:flex;justify-content:space-between;align-items:center}.history-title{font-size:12px;font-weight:800}.clear{border:0;background:transparent;color:#7b8799;font-size:11px;cursor:pointer}
-.history{margin-top:7px;color:#98a2b3;font-size:12px;text-align:center;padding:6px 0}.history-item{text-align:left;padding:9px 0;border-top:1px solid #eef1f5}.history-item:first-child{border-top:0}.history-meta{font-size:10px;color:#98a2b3;margin-bottom:3px}.history-src{font-size:13px;color:#334155}.history-dst{font-size:14px;font-weight:700;margin-top:3px}
-.status{margin-top:9px;text-align:center;font-size:10px;color:#8a94a6}.status strong{color:#59657b}
-.fullscreen{position:fixed;inset:0;z-index:50;background:#fff;display:none;align-items:center;justify-content:center;padding:max(24px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left));text-align:center}
-.fullscreen.show{display:flex}.fs-text{font-size:clamp(30px,8vw,60px);line-height:1.55;font-weight:800;word-break:break-word;white-space:pre-wrap}.fs-close{position:absolute;top:max(14px,env(safe-area-inset-top));right:max(14px,env(safe-area-inset-right));border:0;border-radius:999px;background:#edf0f5;width:44px;height:44px;font-size:23px;cursor:pointer}
-.notice{margin-top:10px;padding:9px 10px;border:1px solid #f0d5a8;background:#fff9ed;border-radius:12px;color:#7a5620;font-size:10px;line-height:1.45}
-@media(max-width:420px){body{padding-left:7px;padding-right:7px}.title{font-size:15px}.direction-card,.input-card,.output-card{padding:11px}.output{font-size:20px;min-height:105px}.lang{padding:9px 5px}.lang .name{font-size:13px}.swap{width:40px;height:40px}.btn{min-height:46px}}
+:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#697386;--line:#e6eaf0;--accent:#3157d5;--accent2:#203d9b;--soft:#eef2ff;--green:#188038;--red:#b42318;--amber:#8a6100;--shadow:0 10px 30px rgba(25,39,72,.08);--r:18px}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR","Noto Sans Lao",Arial,sans-serif}body{padding:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}button,textarea,input{font:inherit}.app{width:min(760px,100%);margin:0 auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.brand{display:flex;align-items:center;gap:9px;min-width:0}.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#3157d5,#6a7de6);display:grid;place-items:center;color:#fff;font-size:20px;box-shadow:var(--shadow)}.title-wrap{min-width:0}.title{font-weight:800;font-size:17px;line-height:1.2}.subtitle{color:var(--muted);font-size:11px;margin-top:3px}.top-actions{display:flex;gap:5px;flex:0 0 auto}.icon-btn{border:1px solid var(--line);background:#fff;border-radius:10px;min-width:38px;height:38px;padding:0 8px;cursor:pointer;color:#344054;font-weight:800}.badge{font-size:10px;font-weight:800;color:var(--accent2);background:var(--soft);border:1px solid #dce3ff;border-radius:999px;padding:5px 7px;white-space:nowrap}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}.direction-card{padding:14px;margin-bottom:10px}.direction{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}.lang{text-align:center;border:1px solid var(--line);border-radius:14px;padding:11px 8px;background:#fbfcff}.lang .flag{font-size:23px}.lang .name{font-weight:800;font-size:14px;margin-top:4px}.lang .role{font-size:10px;color:var(--muted);margin-top:3px}.swap{border:0;border-radius:50%;width:44px;height:44px;background:var(--accent);color:#fff;font-size:21px;font-weight:900;box-shadow:0 6px 16px rgba(49,87,213,.22);cursor:pointer}.swap:active{transform:scale(.97)}.tip{text-align:center;color:var(--muted);font-size:10px;margin-top:9px}.input-card,.output-card{padding:14px;margin-bottom:10px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}.section-title{font-size:13px;font-weight:800}.charcount,.mini-state{font-size:10px;color:var(--muted)}textarea{width:100%;min-height:124px;resize:vertical;border:1px solid var(--line);border-radius:14px;padding:13px 14px;color:var(--text);background:#fcfdff;outline:none;line-height:1.55;font-size:16px}textarea:focus{border-color:#9aaaf2;box-shadow:0 0 0 3px #eef2ff}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.btn{border:0;border-radius:13px;min-height:48px;padding:10px 12px;font-weight:800;cursor:pointer}.btn.primary{background:var(--accent);color:#fff}.btn.secondary{background:#eef1f6;color:#263248}.btn.success{background:#eaf6ee;color:#176b35}.btn:active{transform:translateY(1px)}.btn.recording{background:var(--red)!important;color:#fff!important}.btn.processing{background:var(--amber)!important;color:#fff!important}.btn:disabled{opacity:.58;cursor:default;transform:none}.voice-status{display:none;margin-top:8px;padding:8px 10px;border-radius:11px;background:#f8f9fc;border:1px solid var(--line);font-size:11px;color:#59657b;line-height:1.45}.voice-status.show{display:block}.output{min-height:118px;border-radius:14px;background:#f8faff;border:1px solid #e5eaff;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:22px;line-height:1.55;font-weight:700;word-break:break-word;white-space:pre-wrap}.output.empty{color:#98a2b3;font-size:14px;font-weight:600}.output-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.verify{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}.verify button{width:100%;border:0;background:transparent;text-align:left;padding:3px 1px;color:#43516b;font-weight:800;cursor:pointer}.verify-body{display:none;margin-top:8px;border:1px dashed #ccd5ea;background:#fafbfe;border-radius:12px;padding:11px;color:#697386;font-size:13px;line-height:1.55;white-space:pre-wrap}.verify.open .verify-body{display:block}.history-card{padding:12px 14px;margin-bottom:10px}.history-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.history-title{font-size:12px;font-weight:800}.history-head-actions{display:flex;gap:8px}.clear{border:0;background:transparent;color:#7b8799;font-size:11px;cursor:pointer}.history{margin-top:7px;color:#98a2b3;font-size:12px;text-align:center;padding:6px 0}.history-item{text-align:left;padding:10px 0;border-top:1px solid #eef1f5}.history-item:first-child{border-top:0}.history-meta{font-size:10px;color:#98a2b3;margin-bottom:4px}.history-src{color:#667085;font-size:12px;white-space:pre-wrap}.history-dst{color:#172033;font-size:13px;font-weight:700;white-space:pre-wrap;margin-top:3px}.history-back{color:#7b8799;font-size:11px;white-space:pre-wrap;margin-top:3px}.history-load{margin-top:5px;border:1px solid var(--line);background:#fff;border-radius:8px;font-size:10px;padding:5px 8px;cursor:pointer}.settings{display:none;padding:12px 14px;margin-bottom:10px}.settings.show{display:block}.settings-note{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px}.settings-grid{display:grid;gap:7px}.settings-row{display:grid;grid-template-columns:1fr auto;gap:8px}.settings input{min-width:0;border:1px solid var(--line);border-radius:12px;padding:11px 12px}.state-good{color:var(--green)!important}.state-bad{color:var(--red)!important}.state-warn{color:var(--amber)!important}.notice{font-size:10px;color:#6f7a8e;line-height:1.5;text-align:center;padding:8px 10px}.status{text-align:center;color:#8a94a6;font-size:9px;padding-bottom:4px}.fullscreen{position:fixed;inset:0;background:#fff;z-index:1000;display:none;align-items:center;justify-content:center;padding:40px 24px}.fullscreen.show{display:flex}.fs-close{position:absolute;right:max(14px,env(safe-area-inset-right));top:max(14px,env(safe-area-inset-top));width:46px;height:46px;border:0;border-radius:50%;background:#eef1f6;color:#344054;font-size:28px;cursor:pointer}.fs-text{max-width:1100px;text-align:center;font-size:clamp(30px,8vw,74px);font-weight:800;line-height:1.45;white-space:pre-wrap;word-break:break-word}.update-toast{display:none;position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:900;background:#172033;color:#fff;border-radius:12px;padding:10px 14px;font-size:11px;box-shadow:var(--shadow);max-width:90%;text-align:center}.update-toast.show{display:block}@media(max-width:480px){.title{font-size:15px}.subtitle{font-size:10px}.badge{display:none}.output-actions{grid-template-columns:1fr 1fr}.output-actions .wide-mobile{grid-column:1/-1}.settings-row{grid-template-columns:1fr}.top-actions .text-icon{display:none}}@media(max-width:360px){.actions{grid-template-columns:1fr}.output{font-size:20px}.icon-btn{min-width:34px;padding:0 6px}}
 </style>
 </head>
 <body>
 <div class="app">
-  <header class="topbar">
-    <div class="brand"><div class="logo">🌐</div><div class="title-wrap"><div class="title">한국어 ↔ 라오어 일반대화</div><div class="subtitle">현장 대화용 독립 테스트 앱</div></div></div>
-    <div style="display:flex;gap:6px;align-items:center"><button id="settingsBtn" class="badge" style="cursor:pointer">⚙ 설정</button><div class="badge">G1.0.0 α3</div></div>
-  </header>
+  <div class="topbar">
+    <div class="brand"><div class="logo">🌏</div><div class="title-wrap"><div class="title">한국어 ↔ 라오어 일반대화</div><div class="subtitle">여행 · 식당 · 쇼핑 · 이동 · 일상 대화</div></div></div>
+    <div class="top-actions"><span class="badge" id="versionBadge">G1.0.0-RC1</span><button class="icon-btn" id="coupleAppBtn" title="기존 부부앱">💬<span class="text-icon"> 본앱</span></button><button class="icon-btn" id="settingsBtn" title="연결 설정">⚙️</button></div>
+  </div>
 
   <section class="card direction-card">
-    <div class="direction">
-      <div class="lang"><div class="flag" id="srcFlag">🇰🇷</div><div class="name" id="srcName">한국어</div><div class="role">말하는 사람</div></div>
-      <button class="swap" id="swapBtn" aria-label="화자 전환">⇄</button>
-      <div class="lang"><div class="flag" id="dstFlag">🇱🇦</div><div class="name" id="dstName">ພາສາລາວ</div><div class="role">듣는 사람</div></div>
-    </div>
-    <div class="tip">화자 전환을 누르면 입력 언어와 출력 언어가 함께 바뀝니다.</div>
+    <div class="direction"><div class="lang"><div class="flag" id="srcFlag">🇰🇷</div><div class="name" id="srcName">한국어</div><div class="role">말하는 언어</div></div><button class="swap" id="swapBtn" aria-label="번역 방향 전환">⇄</button><div class="lang"><div class="flag" id="dstFlag">🇱🇦</div><div class="name" id="dstName">ພາສາລາວ</div><div class="role">보여줄 언어</div></div></div>
+    <div class="tip">화자 성별·나이·관계는 원문에 있을 때만 반영합니다.</div>
   </section>
 
   <section class="card input-card">
-    <div class="section-head"><div class="section-title" id="inputTitle">🇰🇷 한국어로 말할 내용</div><div class="charcount"><span id="count">0</span>/500</div></div>
-    <textarea id="input" maxlength="500" placeholder="말하거나 직접 입력하세요."></textarea>
-    <div class="actions">
-      <button class="btn secondary" id="micBtn">🎙️ 한국어 말하기</button>
-      <button class="btn primary" id="translateBtn">번역하기</button>
-    </div>
+    <div class="section-head"><div class="section-title" id="inputTitle">🇰🇷 한국어로 말할 내용</div><div class="charcount"><span id="count">0</span> / 2000</div></div>
+    <textarea id="input" maxlength="2000" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="한국어로 말하거나 직접 입력하세요."></textarea>
+    <div class="actions"><button class="btn secondary" id="micBtn">🎙️ 한국어 말하기</button><button class="btn primary" id="translateBtn">번역하기</button></div>
     <div class="voice-status" id="voiceStatus"></div>
   </section>
 
   <section class="card output-card">
     <div class="section-head"><div class="section-title" id="outputTitle">🇱🇦 상대방에게 보여줄 라오어</div><div class="charcount" id="latency">대기</div></div>
     <div class="output empty" id="output">번역 결과가 여기에 표시됩니다.</div>
-    <div class="output-actions">
-      <button class="btn secondary" id="speakBtn">🔊 듣기</button>
-      <button class="btn secondary" id="largeBtn">📱 크게 보기</button>
-    </div>
-    <div class="verify" id="verifyWrap">
-      <button id="verifyToggle">▸ 의미확인</button>
-      <div class="verify-body" id="verifyBody">번역 후 의미확인이 자동으로 준비됩니다.</div>
-    </div>
+    <div class="output-actions"><button class="btn secondary" id="speakBtn">🔊 듣기</button><button class="btn secondary" id="copyBtn">📋 복사</button><button class="btn secondary wide-mobile" id="largeBtn">📱 크게 보기</button></div>
+    <div class="actions" style="margin-top:8px"><button class="btn success" id="soundToggleBtn">🔊 자동음성: 켜짐</button><button class="btn secondary" id="retryBtn">🔄 재번역</button></div>
+    <div class="verify" id="verifyWrap"><button id="verifyToggle">▸ 의미확인</button><div class="verify-body" id="verifyBody">번역 후 역번역 의미확인이 자동으로 준비됩니다.</div></div>
   </section>
 
   <section class="card history-card">
-    <div class="history-head"><div class="history-title">이 세션의 대화</div><button class="clear" id="clearHistory">지우기</button></div>
+    <div class="history-head"><div class="history-title">최근 대화 · 이 기기 최대 50개</div><div class="history-head-actions"><button class="clear" id="clearHistory">전체 지우기</button></div></div>
     <div class="history" id="history">아직 대화가 없습니다.</div>
   </section>
 
-
-  <section class="card" id="setupCard" style="padding:12px 14px;margin-bottom:10px;display:none">
-    <div class="section-head"><div class="section-title">테스트 연결 설정</div><div class="charcount" id="keyState">Gemini 미설정</div></div>
-    <div style="font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px">α3는 GitHub 저장소에 비밀값을 넣지 않습니다. Gemini API Key와 STT App Token은 이 브라우저 탭의 sessionStorage에만 보관되며 탭을 완전히 닫으면 사라집니다.</div>
-    <div style="font-size:11px;font-weight:800;margin-bottom:5px">Gemini 번역</div>
-    <div style="display:grid;grid-template-columns:1fr auto;gap:8px">
-      <input id="apiKeyInput" type="password" autocomplete="off" placeholder="Gemini API Key" style="min-width:0;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit">
-      <button id="saveKeyBtn" class="btn primary" style="min-height:44px">적용</button>
-    </div>
-    <div style="display:flex;gap:8px;margin-top:8px">
-      <button id="clearKeyBtn" class="btn secondary" style="min-height:40px;flex:1">키 지우기</button>
-      <button id="testKeyBtn" class="btn secondary" style="min-height:40px;flex:1">번역 연결 테스트</button>
-    </div>
+  <section class="card settings" id="setupCard">
+    <div class="section-head"><div class="section-title">연결 설정</div><div class="mini-state" id="connectionState">자동 연결 확인 중</div></div>
+    <div class="settings-note">기존 앱과 같은 출처(origin)에서는 저장된 <b>1차 비밀번호</b>와 음성 Relay 설정을 <b>읽기만 해서 자동 사용</b>합니다. 이 일반대화 앱은 공통 인증값을 수정하지 않습니다. 아래 입력은 문제가 있을 때만 현재 탭에 임시 적용됩니다.</div>
+    <div class="section-head" style="margin-top:8px"><div class="section-title">Gemini 텍스트 번역</div><div class="mini-state" id="keyState">확인 중</div></div>
+    <div class="settings-row"><input id="apiKeyInput" type="password" autocomplete="off" placeholder="현재 탭용 1차 비밀번호 임시값"><button class="btn primary" id="saveKeyBtn" style="min-height:44px">세션 적용</button></div>
+    <div class="actions" style="margin-top:7px"><button class="btn secondary" id="reloadCommonBtn">공통값 다시 읽기</button><button class="btn secondary" id="testKeyBtn">번역 연결 테스트</button></div>
     <div style="height:1px;background:var(--line);margin:12px 0"></div>
-    <div class="section-head" style="margin-bottom:6px"><div class="section-title">Google Chirp 3 STT Relay</div><div class="charcount" id="sttState">미설정</div></div>
-    <div style="display:grid;gap:7px">
-      <input id="relayUrlInput" type="url" inputmode="url" autocomplete="off" placeholder="STT Relay URL" style="min-width:0;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit">
-      <input id="relayTokenInput" type="password" autocomplete="off" placeholder="STT App Token" style="min-width:0;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit">
-    </div>
-    <div style="display:flex;gap:8px;margin-top:8px">
-      <button id="saveSttBtn" class="btn primary" style="min-height:40px;flex:1">STT 적용</button>
-      <button id="testSttBtn" class="btn secondary" style="min-height:40px;flex:1">STT 연결 테스트</button>
-    </div>
-    <div style="font-size:10px;color:var(--muted);line-height:1.45;margin-top:7px">기본 URL은 서울 Cloud Run입니다. 라오스에서 Cloudflare 경유가 필요하면 나중에 같은 칸에 Worker 주소를 넣을 수 있습니다. App Token은 파일에 저장하지 않습니다.</div>
+    <div class="section-head"><div class="section-title">음성 Relay · Chirp 3 / Azure</div><div class="mini-state" id="sttState">확인 중</div></div>
+    <div class="settings-grid"><input id="relayUrlInput" type="url" inputmode="url" autocomplete="off" placeholder="선택사항: 현재 탭용 Relay URL"><input id="relayTokenInput" type="password" autocomplete="off" placeholder="현재 탭용 App Token 임시값"></div>
+    <div class="actions" style="margin-top:7px"><button class="btn primary" id="saveSttBtn">음성 세션 적용</button><button class="btn secondary" id="testSttBtn">Relay 연결 테스트</button></div>
+    <div class="actions" style="margin-top:7px"><button class="btn secondary" id="clearOverridesBtn">세션 임시값 지우기</button><button class="btn secondary" id="diagnosticBtn">🧪 진단기 열기</button></div>
   </section>
 
-  <div class="notice">현재 α3는 <b>일반대화 텍스트 번역 + 역번역 + Google Chirp 3 STT 검증 단계</b>입니다. TTS는 아직 연결하지 않았고, 기존 부부앱 V3.61.95 및 실서비스에는 어떤 변경도 하지 않습니다.</div>
-  <div class="status">GENERAL CONVERSATION TEST · <strong>no spouse-role assumptions</strong></div>
+  <div class="notice">기존 <b>/wife/</b> 실서비스는 수정하지 않습니다. 이 앱은 기존 Cloud Run · Cloudflare · Google Chirp 3 · Azure TTS · Gemini 인프라만 재사용합니다.</div>
+  <div class="status" id="footerStatus">GENERAL CONVERSATION · no role assumptions</div>
 </div>
-
-<div class="fullscreen" id="fullscreen" role="dialog" aria-modal="true">
-  <button class="fs-close" id="fsClose" aria-label="닫기">×</button>
-  <div class="fs-text" id="fsText"></div>
-</div>
-
+<div class="fullscreen" id="fullscreen" role="dialog" aria-modal="true"><button class="fs-close" id="fsClose" aria-label="닫기">×</button><div class="fs-text" id="fsText"></div></div>
+<div class="update-toast" id="updateToast">새 버전을 확인했습니다. 현재 작업이 끝나면 자동으로 적용합니다.</div>
 <script>
 'use strict';
-const APP_VERSION='G1.0.0-alpha3';
+const APP_VERSION='G1.0.0-RC1';
+const BUILD_ID='20260917-RC1-1';
 const MODEL='gemini-3.6-flash';
 const GEMINI_URL=`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
-const TRANSLATE_TIMEOUT_MS=14000;
-const BACK_TIMEOUT_MS=18000;
-const state={direction:'K2L',history:[],runId:0,controller:null,backController:null,apiKey:'',relayUrl:'',relayToken:'',voice:null};
+const SEOUL_RELAY='https://lao-stt-relay-460077888071.asia-northeast3.run.app';
+const BANGKOK_RELAY='https://lao-stt-relay-bkk-qliae2rhva-eu.a.run.app';
+const CLOUDFLARE_RELAY='https://lao-voice-route-test.3547412.workers.dev';
+const PRIMARY_PASSWORD_STORAGE='translator_primary_password';
+const SHARED_RELAY_URL_STORAGE='unified_google_stt_relay_url';
+const SHARED_RELAY_TOKEN_STORAGE='unified_google_stt_relay_token';
+const LEGACY_RELAY_URL_STORAGE='unified_google_stt_relay_url_v296';
+const LEGACY_RELAY_TOKEN_STORAGE='unified_google_stt_relay_token_v296';
+const SESSION_PRIMARY='general_gemini_api_key_v1';
+const SESSION_RELAY_URL='general_stt_relay_url_v1';
+const SESSION_RELAY_TOKEN='general_stt_app_token_v1';
+const HISTORY_KEY='korean_lao_general_history_v1';
+const AUTO_SOUND_KEY='korean_lao_general_auto_sound_v1';
+const UPDATE_CHECK_MS=5*60*1000;
+const TRANSLATE_TIMEOUT_MS=14000,BACK_TIMEOUT_MS=18000,RELAY_TIMEOUT_MS=13000,TTS_TIMEOUT_MS=15000;
+const STT_RATE=16000,STT_FRAME=1600,STT_READY_MS=4500,STT_FINAL_MS=5500,STT_REST_MS=9000,STT_AI_MS=12000;
 const $=id=>document.getElementById(id);
-const ui={
-  srcFlag:$('srcFlag'),srcName:$('srcName'),dstFlag:$('dstFlag'),dstName:$('dstName'),
-  inputTitle:$('inputTitle'),outputTitle:$('outputTitle'),input:$('input'),count:$('count'),
-  output:$('output'),latency:$('latency'),history:$('history'),verifyWrap:$('verifyWrap'),verifyToggle:$('verifyToggle'),verifyBody:$('verifyBody'),
-  fullscreen:$('fullscreen'),fsText:$('fsText'),setupCard:$('setupCard'),apiKeyInput:$('apiKeyInput'),keyState:$('keyState')
-};
-const MODES={
-  K2L:{srcFlag:'🇰🇷',srcName:'한국어',dstFlag:'🇱🇦',dstName:'ພາສາລາວ',inputTitle:'🇰🇷 한국어로 말할 내용',outputTitle:'🇱🇦 상대방에게 보여줄 라오어',placeholder:'한국어로 말하거나 직접 입력하세요.'},
-  L2K:{srcFlag:'🇱🇦',srcName:'ພາສາລາວ',dstFlag:'🇰🇷',dstName:'한국어',inputTitle:'🇱🇦 ເວົ້າພາສາລາວ / 라오어로 말할 내용',outputTitle:'🇰🇷 상대방에게 보여줄 한국어',placeholder:'ພິມ ຫຼື ເວົ້າພາສາລາວ...'}
-};
+const state={direction:'K2L',history:[],runId:0,controller:null,backController:null,apiKey:'',apiKeySource:'',relayUrl:'',relayToken:'',relaySource:'',voice:null,audio:null,audioUrl:'',ttsController:null,ttsRunId:0,autoSound:true,pendingUpdate:null,lastOutput:'',lastSource:'',lastBack:'',busyCopy:false};
+const ui={srcFlag:$('srcFlag'),srcName:$('srcName'),dstFlag:$('dstFlag'),dstName:$('dstName'),inputTitle:$('inputTitle'),outputTitle:$('outputTitle'),input:$('input'),count:$('count'),output:$('output'),latency:$('latency'),history:$('history'),verifyWrap:$('verifyWrap'),verifyToggle:$('verifyToggle'),verifyBody:$('verifyBody'),fullscreen:$('fullscreen'),fsText:$('fsText'),setupCard:$('setupCard'),apiKeyInput:$('apiKeyInput'),keyState:$('keyState'),voiceStatus:$('voiceStatus'),relayUrlInput:$('relayUrlInput'),relayTokenInput:$('relayTokenInput'),sttState:$('sttState'),connectionState:$('connectionState'),soundToggleBtn:$('soundToggleBtn'),updateToast:$('updateToast'),footerStatus:$('footerStatus')};
+const MODES={K2L:{srcFlag:'🇰🇷',srcName:'한국어',dstFlag:'🇱🇦',dstName:'ພາສາລາວ',inputTitle:'🇰🇷 한국어로 말할 내용',outputTitle:'🇱🇦 상대방에게 보여줄 라오어',placeholder:'한국어로 말하거나 직접 입력하세요.',voiceLang:'ko-KR',ttsLang:'lo-LA',ttsVoice:'lo-LA-ChanthavongNeural'},L2K:{srcFlag:'🇱🇦',srcName:'ພາສາລາວ',dstFlag:'🇰🇷',dstName:'한국어',inputTitle:'🇱🇦 ເວົ້າພາສາລາວ / 라오어로 말할 내용',outputTitle:'🇰🇷 상대방에게 보여줄 한국어',placeholder:'ພິມ ຫຼື ເວົ້າພາສາລາວ...',voiceLang:'lo-LA',ttsLang:'ko-KR',ttsVoice:'ko-KR-SunHiNeural'}};
 const FORWARD_PROMPTS={
 K2L:`You are a high-precision Korean-to-Lao conversation translator for real-world face-to-face use.
 Translate ONLY the user's Korean sentence into natural Lao.
@@ -162,7 +97,7 @@ Do not assume the listener's gender, age, family relationship, spouse status, jo
 Use a natural, polite, stranger-friendly Lao register by default, while preserving the source sentence's strength and intent.
 Preserve exactly: who does what to whom, negation, questions vs commands, permission/prohibition, requests, uncertainty, quantities, numbers, dates, times, prices, directions, places, names, food/drug/product names, and explicit relationship terms.
 Never convert a question into advice or a request into a command. Never soften or strengthen prohibitions or obligations.
-If the Korean omits a subject, do not invent husband/wife, man/woman, older/younger, or any other role.
+If the Korean omits a subject, do not invent a relationship, gender, age, hierarchy, or social role.
 For proper nouns or unfamiliar foreign words, preserve their identity instead of replacing them with a guessed local equivalent.
 Return Lao translation only.`,
 L2K:`You are a high-precision Lao-to-Korean conversation translator for real-world face-to-face use.
@@ -172,142 +107,83 @@ Do not assume the speaker or listener's gender, age, family relationship, spouse
 Use natural polite Korean by default (generally 해요체) while preserving the source sentence's strength and intent.
 Preserve exactly: who does what to whom, negation, questions vs commands, permission/prohibition, requests, uncertainty, quantities, numbers, dates, times, prices, directions, places, names, food/drug/product names, and explicit relationship terms.
 Never convert a question into advice or a request into a command. Never soften or strengthen prohibitions or obligations.
-If Lao omits a subject, do not invent husband/wife, man/woman, older/younger, or any other role.
+If Lao omits a subject, do not invent a relationship, gender, age, hierarchy, or social role.
 For proper nouns or unfamiliar phonetic words, preserve their written identity rather than guessing another word.
-Return Korean translation only.`
-};
-const BACK_PROMPTS={
-K2L:`Back-translate the following Lao text into Korean for meaning verification.
+Return Korean translation only.`};
+const BACK_PROMPTS={K2L:`Back-translate the following Lao text into Korean for meaning verification.
 Use ONLY the Lao text as evidence. Do not reconstruct or guess the presumed original Korean.
 Preserve subject/object roles, negation, question/command/request force, permission/prohibition, uncertainty, numbers, times, prices, places, direction, proper nouns, food/drug/product names, and explicit relationship terms.
 Do not normalize suspicious wording into what you think it probably meant.
-Return one natural Korean sentence only, with no explanation.`,
-L2K:`Back-translate the following Korean text into Lao for meaning verification.
+Return one natural Korean sentence only, with no explanation.`,L2K:`Back-translate the following Korean text into Lao for meaning verification.
 Use ONLY the Korean text as evidence. Do not reconstruct or guess the presumed original Lao.
 Preserve subject/object roles, negation, question/command/request force, permission/prohibition, uncertainty, numbers, times, prices, places, direction, proper nouns, food/drug/product names, and explicit relationship terms.
 Do not normalize suspicious wording into what you think it probably meant.
-Return one natural Lao sentence only, with no explanation.`
-};
-function applyDirection(){
-  const m=MODES[state.direction];
-  ui.srcFlag.textContent=m.srcFlag;ui.srcName.textContent=m.srcName;ui.dstFlag.textContent=m.dstFlag;ui.dstName.textContent=m.dstName;
-  ui.inputTitle.textContent=m.inputTitle;ui.outputTitle.textContent=m.outputTitle;ui.input.placeholder=m.placeholder;
-  if(!state.voice?.recording&&!state.voice?.processing)$('micBtn').textContent=state.direction==='K2L'?'🎙️ 한국어 말하기':'🎙️ 라오어 말하기';
-  clearResult();
-}
-function abortRuns(){try{state.controller?.abort()}catch(_){} try{state.backController?.abort()}catch(_){} state.controller=null;state.backController=null;}
-function clearResult(){abortRuns();ui.output.textContent='번역 결과가 여기에 표시됩니다.';ui.output.classList.add('empty');ui.latency.textContent='대기';ui.verifyBody.textContent='번역 후 의미확인이 자동으로 준비됩니다.';ui.verifyWrap.classList.remove('open');ui.verifyToggle.textContent='▸ 의미확인';}
-function swapDirection(){voiceCancel(true);state.runId++;abortRuns();state.direction=state.direction==='K2L'?'L2K':'K2L';ui.input.value='';ui.count.textContent='0';applyDirection();ui.input.focus({preventScroll:true});}
-function addHistory(src,dst,back=''){state.history.unshift({dir:state.direction,src,dst,back,at:new Date()});state.history=state.history.slice(0,20);renderHistory();}
-function renderHistory(){
-  if(!state.history.length){ui.history.className='history';ui.history.textContent='아직 대화가 없습니다.';return;}
-  ui.history.className='history';ui.history.innerHTML='';
-  for(const h of state.history){const wrap=document.createElement('div');wrap.className='history-item';const meta=document.createElement('div');meta.className='history-meta';meta.textContent=`${h.dir==='K2L'?'🇰🇷 → 🇱🇦':'🇱🇦 → 🇰🇷'} · ${h.at.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;const s=document.createElement('div');s.className='history-src';s.textContent=h.src;const d=document.createElement('div');d.className='history-dst';d.textContent=h.dst;wrap.append(meta,s,d);ui.history.appendChild(wrap);}
-}
-function getSessionKey(){try{return sessionStorage.getItem('general_gemini_api_key_v1')||''}catch(_){return''}}
-function setSessionKey(v){try{if(v)sessionStorage.setItem('general_gemini_api_key_v1',v);else sessionStorage.removeItem('general_gemini_api_key_v1')}catch(_){} state.apiKey=v;updateKeyState();}
-function updateKeyState(){const ok=!!state.apiKey;ui.keyState.textContent=ok?'설정됨':'미설정';ui.keyState.style.color=ok?'#157347':'#b42318';}
-function ensureKey(){if(state.apiKey)return true;ui.setupCard.style.display='block';ui.apiKeyInput.focus();window.alert('α3 텍스트 번역 테스트를 위해 Gemini API Key를 먼저 설정해주세요. 키는 이 브라우저 탭의 세션에만 저장되며 GitHub 파일에는 저장되지 않습니다.');return false;}
-function extractGeminiText(data){
-  const c=Array.isArray(data?.candidates)?data.candidates[0]:null;
-  const parts=Array.isArray(c?.content?.parts)?c.content.parts:[];
-  return parts.map(p=>typeof p?.text==='string'?p.text:'').join('').trim();
-}
-async function geminiRequest(systemPrompt,userText,timeoutMs,controller){
-  const timer=setTimeout(()=>{try{controller.abort()}catch(_){}},timeoutMs);
-  try{
-    const res=await fetch(GEMINI_URL,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':state.apiKey},body:JSON.stringify({system_instruction:{parts:[{text:systemPrompt}]},contents:[{role:'user',parts:[{text:userText}]}],generationConfig:{maxOutputTokens:1024,temperature:0,thinkingConfig:{thinkingLevel:'low',includeThoughts:false}}}),signal:controller.signal,cache:'no-store'});
-    let body=null;try{body=await res.json()}catch(_){body={}}
-    if(!res.ok){const msg=body?.error?.message||`HTTP ${res.status}`;throw Object.assign(new Error(msg),{status:res.status});}
-    const text=extractGeminiText(body);if(!text)throw new Error('빈 번역 결과');return text;
-  }finally{clearTimeout(timer)}
-}
-async function translateText(){
-  if(state.voice?.recording||state.voice?.processing){alert('음성입력을 먼저 끝낸 뒤 번역해주세요.');return}
-  const source=ui.input.value.trim();if(!source){ui.input.focus();return}if(!ensureKey())return;
-  const myRun=++state.runId;abortRuns();const started=performance.now();const dir=state.direction;
-  const ctrl=new AbortController();state.controller=ctrl;
-  ui.output.textContent='번역 중…';ui.output.classList.remove('empty');ui.latency.textContent='처리 중';
-  ui.verifyBody.textContent='번역 완료 후 의미확인을 시작합니다.';ui.verifyWrap.classList.remove('open');ui.verifyToggle.textContent='▸ 의미확인';
-  $('translateBtn').disabled=true;
-  try{
-    const translated=await geminiRequest(FORWARD_PROMPTS[dir],source,TRANSLATE_TIMEOUT_MS,ctrl);
-    if(myRun!==state.runId)return;
-    const forwardMs=Math.round(performance.now()-started);
-    ui.output.textContent=translated;ui.output.classList.remove('empty');ui.latency.textContent=`${(forwardMs/1000).toFixed(2)}초`;
-    addHistory(source,translated,'');
-    state.controller=null;
-    void startBackTranslation(dir,translated,myRun);
-  }catch(e){
-    if(myRun!==state.runId||e?.name==='AbortError')return;
-    ui.output.textContent=`번역 실패: ${e?.status===400||e?.status===401||e?.status===403?'API Key 또는 Gemini 권한을 확인해주세요.':(e?.message||'알 수 없는 오류')}`;ui.output.classList.remove('empty');ui.latency.textContent='실패';
-  }finally{if(myRun===state.runId)$('translateBtn').disabled=false;}
-}
-async function startBackTranslation(dir,translated,myRun){
-  const ctrl=new AbortController();state.backController=ctrl;const started=performance.now();
-  ui.verifyBody.textContent='의미확인 중…';
-  try{
-    const back=await geminiRequest(BACK_PROMPTS[dir],translated,BACK_TIMEOUT_MS,ctrl);
-    if(myRun!==state.runId)return;
-    const ms=Math.round(performance.now()-started);ui.verifyBody.textContent=`${back}\n\n의미확인 ${(ms/1000).toFixed(2)}초`;
-    if(state.history[0]&&state.history[0].dst===translated)state.history[0].back=back;
-  }catch(e){if(myRun!==state.runId||e?.name==='AbortError')return;ui.verifyBody.textContent=`의미확인 실패: ${e?.message||'오류'}`;}
-  finally{if(myRun===state.runId)state.backController=null;}
-}
-async function testKey(){if(!ensureKey())return;const ctrl=new AbortController();const old=ui.keyState.textContent;ui.keyState.textContent='테스트 중';try{const t=await geminiRequest('Return only OK.','OK',8000,ctrl);ui.keyState.textContent=t.toUpperCase().includes('OK')?'연결 정상':'응답 확인';}catch(e){ui.keyState.textContent='연결 실패';window.alert('Gemini 연결 실패: '+(e?.message||e));}setTimeout(updateKeyState,1600);}
-
-// ---- G1.0.0-alpha3 · Google Chirp 3 STT ----
-const DEFAULT_STT_RELAY='https://lao-stt-relay-460077888071.asia-northeast3.run.app';
-const STT_RATE=16000,STT_FRAME=1600,STT_READY_MS=4500,STT_FINAL_MS=5500,STT_REST_MS=9000;
-function ssGet(k){try{return sessionStorage.getItem(k)||''}catch(_){return''}}
-function ssSet(k,v){try{if(v)sessionStorage.setItem(k,v);else sessionStorage.removeItem(k)}catch(_){}}
-function loadSttSettings(){state.relayUrl=(ssGet('general_stt_relay_url_v1')||DEFAULT_STT_RELAY).replace(/\/+$/,'');state.relayToken=ssGet('general_stt_app_token_v1');ui.relayUrlInput.value=state.relayUrl;updateSttState()}
-function updateSttState(){const ok=!!(state.relayUrl&&state.relayToken);ui.sttState.textContent=ok?'설정됨':'토큰 미설정';ui.sttState.style.color=ok?'#157347':'#b42318'}
-function ensureStt(){if(state.relayUrl&&state.relayToken)return true;ui.setupCard.style.display='block';ui.relayTokenInput.focus();alert('Chirp 3 STT 테스트를 위해 STT App Token을 먼저 설정해주세요. 토큰은 현재 탭의 sessionStorage에만 저장되며 GitHub 파일에는 들어가지 않습니다.');return false}
-function voiceLang(){return state.direction==='K2L'?'ko-KR':'lo-LA'}
+Return one natural Lao sentence only, with no explanation.`};
+function lsGet(k){try{return localStorage.getItem(k)||''}catch(_){return''}}function lsSet(k,v){try{localStorage.setItem(k,v);return true}catch(_){return false}}function ssGet(k){try{return sessionStorage.getItem(k)||''}catch(_){return''}}function ssSet(k,v){try{if(v)sessionStorage.setItem(k,v);else sessionStorage.removeItem(k)}catch(_){}}function escHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function currentMode(){return MODES[state.direction]}
+function deploymentLabel(){return /\/laos-translator(?:\/|$)/i.test(location.pathname)?'RC1 TEST':'RC1 GENERAL'}
+function siblingPath(name){const parts=location.pathname.split('/').filter(Boolean);if(parts.length&&/\.[A-Za-z0-9]+$/.test(parts[parts.length-1]))parts.pop();if(parts.length&&/^(?:korean-lao-general|laos-translator)$/i.test(parts[parts.length-1]))parts.pop();return '/'+[...parts,name].join('/')+'/'}
+function applyDirection(){const m=currentMode();ui.srcFlag.textContent=m.srcFlag;ui.srcName.textContent=m.srcName;ui.dstFlag.textContent=m.dstFlag;ui.dstName.textContent=m.dstName;ui.inputTitle.textContent=m.inputTitle;ui.outputTitle.textContent=m.outputTitle;ui.input.placeholder=m.placeholder;if(!state.voice?.recording&&!state.voice?.processing)$('micBtn').textContent=state.direction==='K2L'?'🎙️ 한국어 말하기':'🎙️ 라오어 말하기';clearResult(false)}
+function abortRuns(){try{state.controller?.abort()}catch(_){}try{state.backController?.abort()}catch(_){}state.controller=null;state.backController=null}
+function clearResult(stopTts=true){abortRuns();if(stopTts)stopTtsPlayback();state.lastOutput='';state.lastBack='';ui.output.textContent='번역 결과가 여기에 표시됩니다.';ui.output.classList.add('empty');ui.latency.textContent='대기';ui.verifyBody.textContent='번역 후 역번역 의미확인이 자동으로 준비됩니다.';ui.verifyWrap.classList.remove('open');ui.verifyToggle.textContent='▸ 의미확인'}
+function swapDirection(){voiceCancel(true);stopTtsPlayback();state.runId++;abortRuns();state.direction=state.direction==='K2L'?'L2K':'K2L';ui.input.value='';ui.count.textContent='0';applyDirection();ui.input.focus({preventScroll:true})}
+function readHistory(){try{const x=JSON.parse(lsGet(HISTORY_KEY)||'[]');return Array.isArray(x)?x:[]}catch(_){return[]}}
+function saveHistory(){lsSet(HISTORY_KEY,JSON.stringify(state.history.slice(0,50)))}
+function addHistory(src,dst,back=''){const item={id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),dir:state.direction,src:String(src).slice(0,4000),dst:String(dst).slice(0,4000),back:String(back).slice(0,4000),ts:Date.now(),version:APP_VERSION};state.history=state.history.filter(x=>!(x.src===item.src&&x.dst===item.dst));state.history.unshift(item);state.history=state.history.slice(0,50);saveHistory();renderHistory();return item.id}
+function updateHistoryBack(id,back){const h=state.history.find(x=>x.id===id);if(!h)return;h.back=String(back||'').slice(0,4000);saveHistory();renderHistory()}
+function renderHistory(){if(!state.history.length){ui.history.className='history';ui.history.textContent='아직 대화가 없습니다.';return}ui.history.className='history';ui.history.innerHTML='';for(const h of state.history.slice(0,20)){const wrap=document.createElement('div');wrap.className='history-item';wrap.innerHTML=`<div class="history-meta">${h.dir==='K2L'?'🇰🇷 → 🇱🇦':'🇱🇦 → 🇰🇷'} · ${new Date(h.ts||Date.now()).toLocaleString([], {month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})}</div><div class="history-src">${escHtml(h.src)}</div><div class="history-dst">${escHtml(h.dst)}</div>${h.back?`<div class="history-back">↩ ${escHtml(h.back)}</div>`:''}<button class="history-load" data-history-id="${escHtml(h.id)}">불러오기</button>`;ui.history.appendChild(wrap)}}
+function loadHistoryItem(id){const h=state.history.find(x=>x.id===id);if(!h)return;voiceCancel(true);stopTtsPlayback();state.direction=h.dir==='L2K'?'L2K':'K2L';applyDirection();ui.input.value=h.src;ui.count.textContent=String(h.src.length);ui.output.textContent=h.dst;ui.output.classList.remove('empty');ui.latency.textContent='기록';state.lastSource=h.src;state.lastOutput=h.dst;state.lastBack=h.back||'';ui.verifyBody.textContent=h.back||'저장된 역번역이 없습니다.';window.scrollTo({top:0,behavior:'smooth'})}
+function readCredentials(){const sessionPrimary=ssGet(SESSION_PRIMARY).trim(),commonPrimary=lsGet(PRIMARY_PASSWORD_STORAGE).trim();state.apiKey=sessionPrimary||commonPrimary;state.apiKeySource=sessionPrimary?'세션 임시값':commonPrimary?'공통 1차 비밀번호':'';const sessionToken=ssGet(SESSION_RELAY_TOKEN).trim(),commonToken=(lsGet(SHARED_RELAY_TOKEN_STORAGE)||lsGet(LEGACY_RELAY_TOKEN_STORAGE)).trim();const sessionUrl=ssGet(SESSION_RELAY_URL).trim(),commonUrl=(lsGet(SHARED_RELAY_URL_STORAGE)||lsGet(LEGACY_RELAY_URL_STORAGE)).trim();state.relayToken=sessionToken||commonToken;state.relayUrl=(sessionUrl||commonUrl||SEOUL_RELAY).replace(/\/+$/,'');state.relaySource=sessionToken?'세션 임시값':commonToken?'공통 Relay 설정':'';ui.relayUrlInput.value=sessionUrl||'';updateCredentialUi()}
+function updateCredentialUi(){const k=!!state.apiKey,r=!!state.relayToken;ui.keyState.textContent=k?`${state.apiKeySource} 자동사용`:'1차 비밀번호 없음';ui.keyState.className='mini-state '+(k?'state-good':'state-bad');ui.sttState.textContent=r?`${state.relaySource} 자동사용`:'App Token 없음';ui.sttState.className='mini-state '+(r?'state-good':'state-bad');ui.connectionState.textContent=k&&r?'번역·음성 준비됨':k?'텍스트 준비 · 음성 설정 필요':'설정 필요';ui.connectionState.className='mini-state '+(k&&r?'state-good':'state-warn')}
+function ensureKey(){if(state.apiKey)return true;readCredentials();if(state.apiKey)return true;ui.setupCard.classList.add('show');ui.apiKeyInput.focus();alert('저장된 1차 비밀번호를 찾지 못했습니다. 기존 앱에서 1차 비밀번호를 저장하거나, 이 화면에 현재 탭용 임시값을 입력해주세요.');return false}
+function ensureRelay(){if(state.relayToken)return true;readCredentials();if(state.relayToken)return true;ui.setupCard.classList.add('show');ui.relayTokenInput.focus();alert('음성 Relay App Token을 찾지 못했습니다. 기존 앱의 공통 설정을 먼저 사용하거나 현재 탭용 임시값을 입력해주세요.');return false}
+function extractGeminiText(data){const c=Array.isArray(data?.candidates)?data.candidates[0]:null,parts=Array.isArray(c?.content?.parts)?c.content.parts:[];return parts.filter(p=>p?.thought!==true).map(p=>typeof p?.text==='string'?p.text:'').join('').trim()}
+function isRetryableStatus(s){return [408,429,500,502,503,504].includes(Number(s)||0)}
+function timezoneCloudflareFirst(){let tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(_){}return /Asia\/(Vientiane|Bangkok)/i.test(tz)}
+function relayRoutes(){const custom=state.relayUrl&&![SEOUL_RELAY,BANGKOK_RELAY,CLOUDFLARE_RELAY].includes(state.relayUrl)?state.relayUrl:'';const cfRegion=timezoneCloudflareFirst()?'bangkok':'seoul';const cf={name:'cloudflare-'+cfRegion,base:CLOUDFLARE_RELAY,region:cfRegion,via:'cloudflare'};const seoul={name:'seoul',base:SEOUL_RELAY,via:'direct'},bangkok={name:'bangkok',base:BANGKOK_RELAY,via:'direct'},arr=timezoneCloudflareFirst()?[cf,bangkok,seoul]:[seoul,bangkok,cf];if(custom)arr.unshift({name:'custom',base:custom,via:'direct'});return arr.filter((x,i,a)=>a.findIndex(y=>y.base===x.base&&y.region===x.region)===i)}
+function relayUrl(route,path){const u=new URL(route.base.replace(/\/+$/,'')+path);if(route.via==='cloudflare'&&route.region)u.searchParams.set('region',route.region);return u.toString()}
+async function relayFetch(path,init={},timeoutMs=RELAY_TIMEOUT_MS){if(!ensureRelay())throw new Error('RELAY_TOKEN_MISSING');let lastErr=null,lastRes=null;for(const route of relayRoutes()){const c=new AbortController(),external=init.signal,abort=()=>c.abort();if(external){if(external.aborted)c.abort();else external.addEventListener('abort',abort,{once:true})}let timedOut=false;const timer=setTimeout(()=>{timedOut=true;c.abort()},timeoutMs);try{const headers=Object.assign({},init.headers||{}, {'X-App-Token':state.relayToken,Accept:(init.headers&&init.headers.Accept)||'application/json'});const res=await fetch(relayUrl(route,path),Object.assign({},init,{headers,signal:c.signal,cache:'no-store'}));lastRes=res;try{res.__generalRoute=route.name}catch(_){}if(res.ok||!isRetryableStatus(res.status))return res}catch(e){if(external?.aborted)throw e;lastErr=e;if(!timedOut&&e?.name==='AbortError')throw e}finally{clearTimeout(timer);if(external)try{external.removeEventListener('abort',abort)}catch(_){}}}if(lastRes)return lastRes;throw lastErr||new Error('RELAY_ALL_ROUTES_FAILED')}
+function payloadForGemini(systemPrompt,userText){return {system_instruction:{parts:[{text:systemPrompt}]},contents:[{role:'user',parts:[{text:userText}]}],generationConfig:{maxOutputTokens:1024,temperature:0,thinkingConfig:{thinkingLevel:'low',includeThoughts:false}}}}
+async function directGemini(systemPrompt,userText,timeoutMs,externalSignal){if(!state.apiKey)throw new Error('PRIMARY_PASSWORD_MISSING');const c=new AbortController(),abort=()=>c.abort();if(externalSignal){if(externalSignal.aborted)c.abort();else externalSignal.addEventListener('abort',abort,{once:true})}let timedOut=false;const timer=setTimeout(()=>{timedOut=true;c.abort()},timeoutMs);try{const res=await fetch(GEMINI_URL,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':state.apiKey,Accept:'application/json'},body:JSON.stringify(payloadForGemini(systemPrompt,userText)),signal:c.signal,cache:'no-store'});const body=await res.json().catch(()=>({}));if(!res.ok){const e=Object.assign(new Error(body?.error?.message||`HTTP ${res.status}`),{status:res.status});throw e}const text=extractGeminiText(body);if(!text)throw new Error('EMPTY_TRANSLATION');return {text,route:'direct'}}catch(e){if(externalSignal?.aborted)throw e;if(timedOut)e.directTimeout=true;throw e}finally{clearTimeout(timer);if(externalSignal)try{externalSignal.removeEventListener('abort',abort)}catch(_){}}}
+async function relayGemini(systemPrompt,userText,purpose,externalSignal){const res=await relayFetch('/gemini/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({purpose,systemInstruction:systemPrompt,userText,maxOutputTokens:1024}),signal:externalSignal},18000);const body=await res.json().catch(()=>({}));if(!res.ok)throw Object.assign(new Error(body?.error||`RELAY_HTTP_${res.status}`),{status:res.status});const text=String(body.text||'').trim();if(!text)throw new Error('RELAY_EMPTY_TRANSLATION');return {text,route:String(res.__generalRoute||'relay')}}
+async function geminiRequest(systemPrompt,userText,timeoutMs,controller,purpose){try{return await directGemini(systemPrompt,userText,timeoutMs,controller.signal)}catch(e){if(controller.signal.aborted)throw e;if((e instanceof TypeError)||e?.directTimeout||isRetryableStatus(e?.status)){if(state.relayToken)return relayGemini(systemPrompt,userText,purpose,controller.signal)}throw e}}
+function isBusy(){return !!(state.controller||state.backController||state.voice?.recording||state.voice?.processing||state.ttsController||state.busyCopy)}
+async function translateText(){if(state.voice?.recording||state.voice?.processing){alert('음성입력을 먼저 끝낸 뒤 번역해주세요.');return}const source=ui.input.value.trim();if(!source){ui.input.focus();return}if(!ensureKey())return;const myRun=++state.runId;abortRuns();stopTtsPlayback();const started=performance.now(),dir=state.direction,ctrl=new AbortController();state.controller=ctrl;ui.output.textContent='번역 중…';ui.output.classList.remove('empty');ui.latency.textContent='처리 중';ui.verifyBody.textContent='번역 완료 후 의미확인을 시작합니다.';ui.verifyWrap.classList.remove('open');ui.verifyToggle.textContent='▸ 의미확인';$('translateBtn').disabled=true;try{const result=await geminiRequest(FORWARD_PROMPTS[dir],source,TRANSLATE_TIMEOUT_MS,ctrl,'translate');if(myRun!==state.runId)return;const forwardMs=Math.round(performance.now()-started),translated=result.text;state.lastSource=source;state.lastOutput=translated;state.lastBack='';ui.output.textContent=translated;ui.output.classList.remove('empty');ui.latency.textContent=`${(forwardMs/1000).toFixed(2)}초 · ${result.route}`;const historyId=addHistory(source,translated,'');state.controller=null;if(state.autoSound)void speakOutput(true);void startBackTranslation(dir,translated,myRun,historyId)}catch(e){if(myRun!==state.runId||e?.name==='AbortError')return;ui.output.textContent=`번역 실패: ${[400,401,403].includes(Number(e?.status))?'1차 비밀번호 또는 Gemini 권한을 확인해주세요.':(e?.message||'알 수 없는 오류')}`;ui.output.classList.remove('empty');ui.latency.textContent='실패'}finally{if(myRun===state.runId){state.controller=null;$('translateBtn').disabled=false;maybeApplyUpdate()}}}
+async function startBackTranslation(dir,translated,myRun,historyId){const ctrl=new AbortController();state.backController=ctrl;const started=performance.now();ui.verifyBody.textContent='의미확인 중…';try{const result=await geminiRequest(BACK_PROMPTS[dir],translated,BACK_TIMEOUT_MS,ctrl,'backtranslate');if(myRun!==state.runId)return;const ms=Math.round(performance.now()-started);state.lastBack=result.text;ui.verifyBody.textContent=`${result.text}\n\n의미확인 ${(ms/1000).toFixed(2)}초 · ${result.route}`;updateHistoryBack(historyId,result.text)}catch(e){if(myRun!==state.runId||e?.name==='AbortError')return;ui.verifyBody.textContent=`의미확인 실패: ${e?.message||'오류'}`}finally{if(myRun===state.runId){state.backController=null;maybeApplyUpdate()}}}
+async function testKey(){if(!ensureKey())return;ui.keyState.textContent='테스트 중';const c=new AbortController();try{const r=await geminiRequest('Return only OK.','OK',8000,c,'translate');ui.keyState.textContent=`연결 정상 · ${r.route}`;ui.keyState.className='mini-state state-good'}catch(e){ui.keyState.textContent='연결 실패';ui.keyState.className='mini-state state-bad';alert('Gemini 연결 실패: '+(e?.message||e))}setTimeout(updateCredentialUi,2200)}
 function setVoiceUi(kind,msg=''){const b=$('micBtn');b.classList.remove('recording','processing');b.disabled=false;if(kind==='recording'){b.classList.add('recording');b.textContent='⏹️ 음성입력 종료'}else if(kind==='processing'){b.classList.add('processing');b.textContent='⏳ 인식 중';b.disabled=true}else if(kind==='preparing'){b.classList.add('processing');b.textContent='⏳ 마이크 준비';b.disabled=true}else b.textContent=state.direction==='K2L'?'🎙️ 한국어 말하기':'🎙️ 라오어 말하기';ui.voiceStatus.textContent=msg||'';ui.voiceStatus.classList.toggle('show',!!msg)}
-function f32cat(a,b){if(!a?.length)return new Float32Array(b||0);if(!b?.length)return new Float32Array(a);const o=new Float32Array(a.length+b.length);o.set(a);o.set(b,a.length);return o}
-function i16cat(a,b){if(!a?.length)return new Int16Array(b||0);if(!b?.length)return new Int16Array(a);const o=new Int16Array(a.length+b.length);o.set(a);o.set(b,a.length);return o}
-function f32toi16(f){const o=new Int16Array(f.length);for(let i=0;i<f.length;i++){const s=Math.max(-1,Math.min(1,f[i]));o[i]=s<0?Math.round(s*32768):Math.round(s*32767)}return o}
+function f32cat(a,b){if(!a?.length)return new Float32Array(b||0);if(!b?.length)return new Float32Array(a);const o=new Float32Array(a.length+b.length);o.set(a);o.set(b,a.length);return o}function i16cat(a,b){if(!a?.length)return new Int16Array(b||0);if(!b?.length)return new Int16Array(a);const o=new Int16Array(a.length+b.length);o.set(a);o.set(b,a.length);return o}function f32toi16(f){const o=new Int16Array(f.length);for(let i=0;i<f.length;i++){const s=Math.max(-1,Math.min(1,f[i]));o[i]=s<0?Math.round(s*32768):Math.round(s*32767)}return o}
 function resamplePush(v,input,flush=false){v.pending=f32cat(v.pending,input&&input.length?input:new Float32Array(0));const ratio=v.inputRate/STT_RATE,out=[];while(v.pos+1<v.pending.length){const i=Math.floor(v.pos),f=v.pos-i;out.push(v.pending[i]*(1-f)+v.pending[i+1]*f);v.pos+=ratio}if(flush&&v.pending.length){while(v.pos<v.pending.length){out.push(v.pending[Math.min(v.pending.length-1,Math.round(v.pos))]);v.pos+=ratio}}const drop=Math.min(v.pending.length,Math.floor(v.pos));if(drop>0){v.pending=v.pending.slice(drop);v.pos-=drop}if(flush){v.pending=new Float32Array(0);v.pos=0}return f32toi16(new Float32Array(out))}
-function concatParts(parts){let n=0;for(const p of parts)n+=p.length;const out=new Int16Array(n);let off=0;for(const p of parts){out.set(p,off);off+=p.length}return out}
-function wavBlob(pcm){const ab=new ArrayBuffer(44+pcm.length*2),v=new DataView(ab);let p=0;const s=x=>{for(let i=0;i<x.length;i++)v.setUint8(p++,x.charCodeAt(i))};s('RIFF');v.setUint32(p,36+pcm.length*2,true);p+=4;s('WAVE');s('fmt ');v.setUint32(p,16,true);p+=4;v.setUint16(p,1,true);p+=2;v.setUint16(p,1,true);p+=2;v.setUint32(p,16000,true);p+=4;v.setUint32(p,32000,true);p+=4;v.setUint16(p,2,true);p+=2;v.setUint16(p,16,true);p+=2;s('data');v.setUint32(p,pcm.length*2,true);p+=4;for(let i=0;i<pcm.length;i++,p+=2)v.setInt16(p,pcm[i],true);return new Blob([ab],{type:'audio/wav'})}
-function blob64(blob){return new Promise((resolve,reject)=>{const r=new FileReader();r.onerror=()=>reject(r.error||new Error('FILE_READ'));r.onload=()=>{const s=String(r.result||''),i=s.indexOf(',');resolve(i>=0?s.slice(i+1):s)};r.readAsDataURL(blob)})}
-function wsUrl(base){return String(base).replace(/^http:/i,'ws:').replace(/^https:/i,'wss:').replace(/\/+$/,'')+'/stream'}
-function voiceDisconnect(v){try{v.processor?.disconnect()}catch(_){}try{v.source?.disconnect()}catch(_){}try{v.silent?.disconnect()}catch(_){}try{for(const t of v.stream?.getTracks?.()||[])t.stop()}catch(_){}try{if(v.ctx&&v.ctx.state!=='closed')v.ctx.close()}catch(_){}v.processor=v.source=v.silent=v.stream=v.ctx=null}
-function voiceCloseWs(v,cancel=false){const w=v?.ws;v.ws=null;v.wsReady=false;if(!w)return;try{if(cancel&&w.readyState===WebSocket.OPEN)w.send(JSON.stringify({type:'cancel'}))}catch(_){}try{if(w.readyState===WebSocket.OPEN||w.readyState===WebSocket.CONNECTING)w.close(1000,cancel?'cancel':'client-close')}catch(_){}}
+function concatParts(parts){let n=0;for(const p of parts)n+=p.length;const out=new Int16Array(n);let o=0;for(const p of parts){out.set(p,o);o+=p.length}return out}
+function wavBlob(pcm){const ab=new ArrayBuffer(44+pcm.length*2),v=new DataView(ab);const w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i))};w(0,'RIFF');v.setUint32(4,36+pcm.length*2,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,STT_RATE,true);v.setUint32(28,STT_RATE*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,'data');v.setUint32(40,pcm.length*2,true);for(let i=0;i<pcm.length;i++)v.setInt16(44+i*2,pcm[i],true);return new Blob([ab],{type:'audio/wav'})}
+function blob64(blob){return new Promise((resolve,reject)=>{const r=new FileReader();r.onerror=()=>reject(r.error||new Error('FILE_READER'));r.onload=()=>resolve(String(r.result||'').split(',')[1]||'');r.readAsDataURL(blob)})}
+function wsCandidates(){return relayRoutes().map(r=>{const u=new URL(relayUrl(r,'/stream'));u.protocol=u.protocol==='https:'?'wss:':'ws:';return {name:r.name,url:u.toString()}})}
+function voiceDisconnect(v){try{v.processor&&(v.processor.onaudioprocess=null,v.processor.disconnect())}catch(_){}try{v.source?.disconnect()}catch(_){}try{v.silent?.disconnect()}catch(_){}try{v.stream?.getTracks().forEach(t=>t.stop())}catch(_){}try{v.ctx?.close()}catch(_){}v.processor=v.source=v.silent=v.stream=v.ctx=null}
+function voiceCloseWs(v,cancel=false){const w=v.ws;if(!w)return;try{if(cancel&&w.readyState===WebSocket.OPEN)w.send(JSON.stringify({type:'cancel'}))}catch(_){}try{if(w.readyState===WebSocket.OPEN||w.readyState===WebSocket.CONNECTING)w.close(1000,cancel?'cancel':'client-close')}catch(_){}v.ws=null;v.wsReady=false}
 function appendPcm(v,pcm){if(!pcm?.length)return;v.parts.push(pcm);v.sendPending=i16cat(v.sendPending,pcm);if(v.wsReady&&v.ws?.readyState===WebSocket.OPEN)flushFrames(v)}
 function sendFrame(v,pcm){if(!v.wsReady||v.ws?.readyState!==WebSocket.OPEN||!pcm.length)return;v.seq++;v.sent+=pcm.length;v.ws.send(JSON.stringify({type:'chunkMeta',seq:v.seq,clientGapMs:0,scheduleLagMs:0,audioEndMs:v.sent/STT_RATE*1000}));v.ws.send(pcm.buffer.slice(pcm.byteOffset,pcm.byteOffset+pcm.byteLength))}
 function flushFrames(v){while(v.sendPending.length>=STT_FRAME){const f=v.sendPending.slice(0,STT_FRAME);v.sendPending=v.sendPending.slice(STT_FRAME);sendFrame(v,f)}}
-function openVoiceWs(v){return new Promise(resolve=>{let settled=false,timer=null;const done=x=>{if(settled)return;settled=true;if(timer)clearTimeout(timer);resolve(!!x)};let ws;try{ws=new WebSocket(wsUrl(state.relayUrl))}catch(_){return done(false)}v.ws=ws;ws.binaryType='arraybuffer';timer=setTimeout(()=>{v.wsFailed=true;try{ws.close()}catch(_){}done(false)},STT_READY_MS);ws.onopen=()=>{if(v.cancelled)return;try{ws.send(JSON.stringify({type:'start',token:state.relayToken,languageCode:v.lang,sampleRate:16000,channels:1,bitsPerSample:16,frameMs:100,requestIndex:'general-'+Date.now()}))}catch(_){v.wsFailed=true;done(false)}};ws.onmessage=ev=>{let m;try{m=JSON.parse(String(ev.data||''))}catch(_){return}if(m.type==='ready'){v.wsReady=true;flushFrames(v);done(true)}else if(m.type==='done'){v.wsResult={ok:!!m.ok,transcript:String(m.transcript||'').trim()};v.wsDone?.(v.wsResult)}else if(m.type==='error'){v.wsFailed=true;v.wsError=String(m.grpcMessage||m.error||'STREAM_ERROR');done(false);v.wsDone?.({ok:false,error:v.wsError})}};ws.onerror=()=>{v.wsFailed=true;v.wsError='WEBSOCKET_ERROR';done(false);v.wsDone?.({ok:false,error:v.wsError})};ws.onclose=e=>{if(!v.cancelled&&!v.wsResult&&e.code!==1000){v.wsFailed=true;v.wsError='WEBSOCKET_CLOSE_'+e.code;v.wsDone?.({ok:false,error:v.wsError})}}})}
-async function restTranscribe(pcm,lang){const c=new AbortController(),timer=setTimeout(()=>c.abort(),STT_REST_MS);try{const audioBase64=await blob64(wavBlob(pcm));const res=await fetch(state.relayUrl.replace(/\/+$/,'')+'/transcribe',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json','X-App-Token':state.relayToken},body:JSON.stringify({audioBase64,mimeType:'audio/wav',languageCode:lang}),signal:c.signal,cache:'no-store'});const data=await res.json().catch(()=>({}));if(!res.ok)throw new Error(data?.error||('STT_HTTP_'+res.status));const t=String(data.transcript||data.text||'').trim();if(!t)throw new Error('STT_NO_TEXT');return t}finally{clearTimeout(timer)}}
-async function voiceStart(){if(!ensureStt())return;if(state.voice?.recording||state.voice?.processing)return;if(!navigator.mediaDevices?.getUserMedia){alert('이 브라우저에서는 마이크 입력을 사용할 수 없습니다.');return}const AC=window.AudioContext||window.webkitAudioContext;if(!AC){alert('이 브라우저에서는 Web Audio를 사용할 수 없습니다.');return}const v={recording:false,processing:false,cancelled:false,lang:voiceLang(),ctx:null,stream:null,source:null,processor:null,silent:null,inputRate:48000,pending:new Float32Array(0),pos:0,parts:[],sendPending:new Int16Array(0),ws:null,wsReady:false,wsFailed:false,wsError:'',wsResult:null,wsDone:null,seq:0,sent:0,started:Date.now()};state.voice=v;setVoiceUi('preparing','마이크와 Google Chirp 3 STT를 준비하고 있습니다.');try{try{v.ctx=new AC({latencyHint:'interactive'})}catch(_){v.ctx=new AC()}try{await v.ctx.resume()}catch(_){}v.stream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true,autoGainControl:true}});v.inputRate=Number(v.ctx.sampleRate||48000);v.source=v.ctx.createMediaStreamSource(v.stream);if(typeof v.ctx.createScriptProcessor!=='function')throw new Error('SCRIPT_PROCESSOR_UNSUPPORTED');v.processor=v.ctx.createScriptProcessor(2048,1,1);v.silent=v.ctx.createGain();v.silent.gain.value=0;v.processor.onaudioprocess=e=>{if(!v.recording||v.cancelled)return;appendPcm(v,resamplePush(v,new Float32Array(e.inputBuffer.getChannelData(0)),false))};v.source.connect(v.processor);v.processor.connect(v.silent);v.silent.connect(v.ctx.destination);v.recording=true;setVoiceUi('recording',v.lang==='ko-KR'?'🔴 한국어 듣는 중 · 말을 마치면 다시 누르세요.':'🔴 라오어 듣는 중 · 말을 마치면 다시 누르세요.');void openVoiceWs(v).then(ok=>{if(v.recording&&!ok)setVoiceUi('recording','🔴 듣는 중 · 스트리밍이 불안정해도 계속 말씀하세요. 종료 후 전체 녹음으로 복구합니다.')})}catch(e){voiceDisconnect(v);state.voice=null;setVoiceUi('idle');alert('음성입력 시작 실패: '+(e?.message||e))}}
-async function voiceStop(){const v=state.voice;if(!v?.recording)return;v.recording=false;v.processing=true;setVoiceUi('processing','⏳ 마지막 음성을 인식하고 있습니다.');try{appendPcm(v,resamplePush(v,new Float32Array(0),true));voiceDisconnect(v);const pcm=concatParts(v.parts);if(pcm.length<320)throw new Error('NO_PCM_CAPTURED');let transcript='';if(v.wsReady&&v.ws?.readyState===WebSocket.OPEN){if(v.sendPending.length){sendFrame(v,v.sendPending);v.sendPending=new Int16Array(0)}const p=new Promise(r=>{v.wsDone=r});try{v.ws.send(JSON.stringify({type:'end'}))}catch(_){}const r=await Promise.race([p,new Promise(r=>setTimeout(()=>r({ok:false,error:'FINAL_TIMEOUT'}),STT_FINAL_MS))]);if(r?.ok&&r.transcript)transcript=String(r.transcript).trim()}voiceCloseWs(v,false);let recovered=false;if(!transcript){recovered=true;transcript=await restTranscribe(pcm,v.lang)}transcript=String(transcript||'').replace(/\uFFFD/g,'').trim();if(!transcript)throw new Error('NO_TRANSCRIPT');ui.input.value=transcript.slice(0,500);ui.count.textContent=String(ui.input.value.length);ui.input.focus({preventScroll:true});setVoiceUi('idle',`${recovered?'✅ 음성인식 완료 · 전체 녹음 자동복구':'✅ 음성인식 완료'} · 입력문을 확인한 뒤 번역하세요.`);setTimeout(()=>{if(!state.voice?.recording&&!state.voice?.processing)setVoiceUi('idle')},6000)}catch(e){voiceCloseWs(v,true);setVoiceUi('idle','⚠️ 음성인식에 실패했습니다. 설정과 마이크 권한을 확인해주세요.');alert('STT 실패: '+(e?.message||e))}finally{v.processing=false;if(state.voice===v)state.voice=null}}
-function voiceCancel(silent=false){const v=state.voice;if(!v)return;v.cancelled=true;v.recording=false;v.processing=false;voiceDisconnect(v);voiceCloseWs(v,true);state.voice=null;setVoiceUi('idle');if(!silent)ui.voiceStatus.classList.remove('show')}
+async function openVoiceWs(v){const candidates=wsCandidates();for(const cand of candidates){if(v.cancelled||!v.recording)return false;const ok=await new Promise(resolve=>{let settled=false,timer=null;const done=x=>{if(settled)return;settled=true;if(timer)clearTimeout(timer);resolve(!!x)};let ws;try{ws=new WebSocket(cand.url)}catch(_){return done(false)}v.ws=ws;v.wsReady=false;ws.binaryType='arraybuffer';timer=setTimeout(()=>{try{ws.close()}catch(_){}done(false)},STT_READY_MS);ws.onopen=()=>{if(v.cancelled)return done(false);try{ws.send(JSON.stringify({type:'start',token:state.relayToken,languageCode:v.lang,sampleRate:16000,channels:1,bitsPerSample:16,frameMs:100,requestIndex:'general-'+Date.now()}))}catch(_){done(false)}};ws.onmessage=ev=>{let m;try{m=JSON.parse(String(ev.data||''))}catch(_){return}if(m.type==='ready'){v.wsReady=true;v.wsRoute=cand.name;flushFrames(v);done(true)}else if(m.type==='done'){v.wsResult={ok:!!m.ok,transcript:String(m.transcript||'').trim()};v.wsDone?.(v.wsResult)}else if(m.type==='error'){v.wsError=String(m.grpcMessage||m.error||'STREAM_ERROR');if(!v.wsReady)done(false);v.wsDone?.({ok:false,error:v.wsError})}};ws.onerror=()=>{if(!v.wsReady)done(false);else v.wsDone?.({ok:false,error:'WEBSOCKET_ERROR'})};ws.onclose=e=>{if(!v.cancelled&&!v.wsResult&&v.wsReady&&e.code!==1000)v.wsDone?.({ok:false,error:'WEBSOCKET_CLOSE_'+e.code})}});if(ok)return true;voiceCloseWs(v,true)}return false}
+async function restTranscribe(pcm,lang){const c=new AbortController(),timer=setTimeout(()=>c.abort(),STT_REST_MS);try{const audioBase64=await blob64(wavBlob(pcm)),res=await relayFetch('/transcribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({audioBase64,mimeType:'audio/wav',languageCode:lang}),signal:c.signal},STT_REST_MS);const data=await res.json().catch(()=>({}));if(!res.ok)throw new Error(data?.error||('STT_HTTP_'+res.status));const t=String(data.transcript||data.text||'').trim();if(!t)throw new Error('STT_NO_TEXT');return {text:t,stage:'REST',route:String(res.__generalRoute||'relay')}}finally{clearTimeout(timer)}}
+async function aiTranscribe(pcm,lang){const c=new AbortController(),timer=setTimeout(()=>c.abort(),STT_AI_MS);try{const audioBase64=await blob64(wavBlob(pcm)),res=await relayFetch('/gemini/audio-transcribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({audioBase64,mimeType:'audio/wav',languageCode:lang}),signal:c.signal},STT_AI_MS);const data=await res.json().catch(()=>({}));if(!res.ok)throw new Error(data?.error||('AI_STT_HTTP_'+res.status));const t=String(data.transcript||data.text||'').trim();if(!t||t==='[[NO_SPEECH]]')throw new Error('AI_STT_NO_TEXT');return {text:t,stage:'AI',route:String(res.__generalRoute||'relay')}}finally{clearTimeout(timer)}}
+async function voiceStart(){if(!ensureRelay())return;if(state.voice?.recording||state.voice?.processing)return;if(!navigator.mediaDevices?.getUserMedia){alert('이 브라우저에서는 마이크 입력을 사용할 수 없습니다.');return}const AC=window.AudioContext||window.webkitAudioContext;if(!AC){alert('이 브라우저에서는 Web Audio를 사용할 수 없습니다.');return}const v={recording:false,processing:false,cancelled:false,lang:currentMode().voiceLang,ctx:null,stream:null,source:null,processor:null,silent:null,inputRate:48000,pending:new Float32Array(0),pos:0,parts:[],sendPending:new Int16Array(0),ws:null,wsReady:false,wsResult:null,wsDone:null,wsRoute:'',seq:0,sent:0};state.voice=v;setVoiceUi('preparing','마이크와 Google Chirp 3 STT를 준비하고 있습니다.');try{try{v.ctx=new AC({latencyHint:'interactive'})}catch(_){v.ctx=new AC()}try{await v.ctx.resume()}catch(_){}v.stream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true,autoGainControl:true}});v.inputRate=Number(v.ctx.sampleRate||48000);v.source=v.ctx.createMediaStreamSource(v.stream);if(typeof v.ctx.createScriptProcessor!=='function')throw new Error('SCRIPT_PROCESSOR_UNSUPPORTED');v.processor=v.ctx.createScriptProcessor(2048,1,1);v.silent=v.ctx.createGain();v.silent.gain.value=0;v.processor.onaudioprocess=e=>{if(!v.recording||v.cancelled)return;appendPcm(v,resamplePush(v,new Float32Array(e.inputBuffer.getChannelData(0)),false))};v.source.connect(v.processor);v.processor.connect(v.silent);v.silent.connect(v.ctx.destination);v.recording=true;setVoiceUi('recording',v.lang==='ko-KR'?'🔴 한국어 듣는 중 · 말을 마치면 다시 누르세요.':'🔴 라오어 듣는 중 · 말을 마치면 다시 누르세요.');void openVoiceWs(v).then(ok=>{if(v.recording&&!ok)setVoiceUi('recording','🔴 듣는 중 · 스트리밍 연결이 불안정합니다. 종료 후 전체 녹음 REST/AI 복구를 시도합니다.')})}catch(e){voiceDisconnect(v);state.voice=null;setVoiceUi('idle');alert('음성입력 시작 실패: '+(e?.message||e))}}
+async function voiceStop(){const v=state.voice;if(!v?.recording)return;v.recording=false;v.processing=true;setVoiceUi('processing','⏳ 마지막 음성을 인식하고 있습니다.');try{appendPcm(v,resamplePush(v,new Float32Array(0),true));voiceDisconnect(v);const pcm=concatParts(v.parts);if(pcm.length<320)throw new Error('NO_PCM_CAPTURED');let transcript='',stage='STREAM',route=v.wsRoute||'';if(v.wsReady&&v.ws?.readyState===WebSocket.OPEN){if(v.sendPending.length){sendFrame(v,v.sendPending);v.sendPending=new Int16Array(0)}const p=new Promise(r=>{v.wsDone=r});try{v.ws.send(JSON.stringify({type:'end'}))}catch(_){}const r=await Promise.race([p,new Promise(r=>setTimeout(()=>r({ok:false,error:'FINAL_TIMEOUT'}),STT_FINAL_MS))]);if(r?.ok&&r.transcript)transcript=String(r.transcript).trim()}voiceCloseWs(v,false);if(!transcript){try{const r=await restTranscribe(pcm,v.lang);transcript=r.text;stage=r.stage;route=r.route}catch(restError){const r=await aiTranscribe(pcm,v.lang);transcript=r.text;stage=r.stage;route=r.route}}transcript=String(transcript||'').replace(/\uFFFD/g,'').trim();if(!transcript)throw new Error('NO_TRANSCRIPT');ui.input.value=transcript.slice(0,2000);ui.count.textContent=String(ui.input.value.length);ui.input.focus({preventScroll:true});setVoiceUi('idle',`✅ 음성인식 완료 · ${stage}${route?' · '+route:''} · 입력문을 확인한 뒤 번역하세요.`);setTimeout(()=>{if(!state.voice?.recording&&!state.voice?.processing)setVoiceUi('idle')},6500)}catch(e){voiceCloseWs(v,true);setVoiceUi('idle','⚠️ 음성인식에 실패했습니다. 연결 설정과 마이크 권한을 확인해주세요.');alert('STT 실패: '+(e?.message||e))}finally{v.processing=false;if(state.voice===v)state.voice=null;maybeApplyUpdate()}}
+function voiceCancel(silent=false){const v=state.voice;if(!v)return;v.cancelled=true;v.recording=false;v.processing=false;voiceDisconnect(v);voiceCloseWs(v,true);state.voice=null;setVoiceUi('idle');if(!silent)ui.voiceStatus.classList.remove('show');maybeApplyUpdate()}
 async function toggleVoice(){const v=state.voice;if(v?.processing)return;if(v?.recording)return voiceStop();return voiceStart()}
-async function testStt(){if(!ensureStt())return;ui.sttState.textContent='테스트 중';const c=new AbortController(),timer=setTimeout(()=>c.abort(),6500);try{const res=await fetch(state.relayUrl.replace(/\/+$/,'')+'/health',{headers:{'Accept':'application/json','X-App-Token':state.relayToken},signal:c.signal,cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json().catch(()=>({}));ui.sttState.textContent='연결 정상';ui.sttState.style.color='#157347';alert('STT Relay 연결 정상'+(data?.version?' · '+data.version:''))}catch(e){ui.sttState.textContent='연결 실패';ui.sttState.style.color='#b42318';alert('STT Relay 연결 실패: '+(e?.message||e))}finally{clearTimeout(timer);setTimeout(updateSttState,1800)}}
-
-$('swapBtn').addEventListener('click',swapDirection);
-ui.input.addEventListener('input',()=>ui.count.textContent=String(ui.input.value.length));
-ui.input.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')translateText();});
-$('translateBtn').addEventListener('click',translateText);
-$('micBtn').addEventListener('click',toggleVoice);
-$('speakBtn').addEventListener('click',()=>window.alert('α3에서는 TTS를 아직 연결하지 않았습니다. STT 검증 후 Azure TTS를 연결합니다.'));
-$('largeBtn').addEventListener('click',()=>{if(ui.output.classList.contains('empty'))return;ui.fsText.textContent=ui.output.textContent;ui.fullscreen.classList.add('show');});
-$('fsClose').addEventListener('click',()=>ui.fullscreen.classList.remove('show'));
-ui.fullscreen.addEventListener('click',e=>{if(e.target===ui.fullscreen)ui.fullscreen.classList.remove('show')});
-$('verifyToggle').addEventListener('click',()=>{const open=ui.verifyWrap.classList.toggle('open');ui.verifyToggle.textContent=(open?'▾':'▸')+' 의미확인';});
-$('clearHistory').addEventListener('click',()=>{state.history=[];renderHistory();});
-$('settingsBtn').addEventListener('click',()=>{ui.setupCard.style.display=ui.setupCard.style.display==='none'?'block':'none';if(ui.setupCard.style.display!=='none')ui.apiKeyInput.focus();});
-$('saveKeyBtn').addEventListener('click',()=>{const k=ui.apiKeyInput.value.trim();if(!k){window.alert('API Key를 입력해주세요.');return}setSessionKey(k);ui.apiKeyInput.value='';window.alert('이 탭의 세션에만 적용했습니다. GitHub 파일에는 저장되지 않습니다.');});
-$('clearKeyBtn').addEventListener('click',()=>{setSessionKey('');ui.apiKeyInput.value='';});
-$('testKeyBtn').addEventListener('click',testKey);
-$('saveSttBtn').addEventListener('click',()=>{const u=ui.relayUrlInput.value.trim().replace(/\/+$/,''),t=ui.relayTokenInput.value.trim();if(!u||!/^https:\/\//i.test(u)){alert('HTTPS STT Relay URL을 입력해주세요.');return}if(!t){alert('STT App Token을 입력해주세요.');return}state.relayUrl=u;state.relayToken=t;ssSet('general_stt_relay_url_v1',u);ssSet('general_stt_app_token_v1',t);ui.relayTokenInput.value='';updateSttState();alert('STT 설정을 현재 탭 세션에만 적용했습니다.');});
-$('testSttBtn').addEventListener('click',testStt);
-window.addEventListener('keydown',e=>{if(e.key==='Escape')ui.fullscreen.classList.remove('show')});
-window.addEventListener('pagehide',()=>{abortRuns();voiceCancel(true)});
-state.apiKey=getSessionKey();updateKeyState();loadSttSettings();applyDirection();
-console.info('[GENERAL]',APP_VERSION,'loaded',MODEL);
+async function testStt(){if(!ensureRelay())return;ui.sttState.textContent='테스트 중';try{const res=await relayFetch('/health',{method:'GET'},7000),data=await res.json().catch(()=>({}));if(!res.ok)throw new Error(data?.error||('HTTP '+res.status));ui.sttState.textContent=`연결 정상 · ${res.__generalRoute||'relay'}${data?.version?' · '+data.version:''}`;ui.sttState.className='mini-state state-good'}catch(e){ui.sttState.textContent='연결 실패';ui.sttState.className='mini-state state-bad';alert('Relay 연결 실패: '+(e?.message||e))}setTimeout(updateCredentialUi,2500)}
+function sanitizeTts(text){let s=String(text??'');try{s=s.replace(/\p{Regional_Indicator}{2}/gu,' ').replace(/[\p{Extended_Pictographic}\p{Emoji_Presentation}]/gu,' ')}catch(_){s=s.replace(/[\u{1F000}-\u{1FAFF}\u2600-\u27BF]/gu,' ')}return s.replace(/[\u200D\uFE0E\uFE0F\u20E3]/g,' ').replace(/[ \t]{2,}/g,' ').replace(/ *\n */g,'\n').trim()}
+function stopTtsPlayback(){state.ttsRunId++;try{state.ttsController?.abort()}catch(_){}state.ttsController=null;if(state.audio){try{state.audio.pause();state.audio.currentTime=0;state.audio.src=''}catch(_){}}if(state.audioUrl){try{URL.revokeObjectURL(state.audioUrl)}catch(_){}state.audioUrl='';}$('speakBtn').textContent='🔊 듣기'}
+async function speakOutput(auto=false){if(!state.lastOutput||ui.output.classList.contains('empty'))return;if(!ensureRelay()){if(!auto)alert('음성 Relay 설정이 필요합니다.');return}if(state.audio&&!state.audio.paused){stopTtsPlayback();return}const text=sanitizeTts(state.lastOutput);if(!text)return;stopTtsPlayback();const run=++state.ttsRunId,c=new AbortController();state.ttsController=c;const m=currentMode(),btn=$('speakBtn');btn.textContent='⏳ 음성 로딩';try{const res=await relayFetch('/azure/tts',{method:'POST',headers:{'Content-Type':'application/json',Accept:'audio/mpeg'},body:JSON.stringify({languageCode:m.ttsLang,voice:m.ttsVoice,text}),signal:c.signal},TTS_TIMEOUT_MS);if(!res.ok){let msg='';try{msg=(await res.json())?.error||''}catch(_){}throw new Error(msg||`TTS_HTTP_${res.status}`)}const blob=await res.blob();if(!blob.size)throw new Error('TTS_EMPTY_AUDIO');if(run!==state.ttsRunId)return;state.audioUrl=URL.createObjectURL(blob);state.audio=state.audio||new Audio();state.audio.src=state.audioUrl;btn.textContent='⏹️ 음성 중지';state.audio.onended=()=>{if(run===state.ttsRunId)btn.textContent='🔊 다시 듣기'};state.audio.onerror=()=>{if(run===state.ttsRunId)btn.textContent='🔊 다시 듣기'};await state.audio.play()}catch(e){if(run!==state.ttsRunId)return;btn.textContent='🔊 다시 듣기';if(!auto&&e?.name!=='AbortError')alert('TTS 실패: '+(e?.message||e))}finally{if(run===state.ttsRunId)state.ttsController=null;maybeApplyUpdate()}}
+function setAutoSound(v){state.autoSound=!!v;lsSet(AUTO_SOUND_KEY,state.autoSound?'1':'0');ui.soundToggleBtn.textContent=state.autoSound?'🔊 자동음성: 켜짐':'🔇 자동음성: 꺼짐';if(!state.autoSound)stopTtsPlayback()}
+async function copyOutput(){if(!state.lastOutput)return;state.busyCopy=true;const btn=$('copyBtn'),old=btn.textContent;try{if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(state.lastOutput);else{const ta=document.createElement('textarea');ta.value=state.lastOutput;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();if(!document.execCommand('copy'))throw new Error('COPY_FAILED');ta.remove()}btn.textContent='✅ 복사됨'}catch(e){btn.textContent='⚠️ 복사 실패'}finally{setTimeout(()=>btn.textContent=old,1200);state.busyCopy=false;maybeApplyUpdate()}}
+async function checkForUpdate(){try{const res=await fetch('version.json?ts='+Date.now(),{cache:'no-store'});if(!res.ok)return;const v=await res.json();if(String(v.version||'')!==APP_VERSION||String(v.buildId||'')!==BUILD_ID){state.pendingUpdate=v;ui.updateToast.classList.add('show');maybeApplyUpdate()}}catch(_){}}
+function maybeApplyUpdate(){if(!state.pendingUpdate||isBusy())return;const target=state.pendingUpdate;state.pendingUpdate=null;ui.updateToast.textContent=`${target.version||'새 버전'} 적용 중…`;ui.updateToast.classList.add('show');setTimeout(()=>location.reload(),250)}
+function openDiagnostic(){location.href='diagnostic.html'}
+function saveSessionPrimary(){const k=ui.apiKeyInput.value.trim();if(!k){alert('현재 탭에 적용할 1차 비밀번호를 입력해주세요.');return}ssSet(SESSION_PRIMARY,k);ui.apiKeyInput.value='';readCredentials();alert('공통 인증값은 수정하지 않고 현재 탭에만 적용했습니다.')}
+function saveSessionRelay(){const u=ui.relayUrlInput.value.trim().replace(/\/+$/,''),t=ui.relayTokenInput.value.trim();if(u&&!/^https:\/\//i.test(u)){alert('Relay URL은 HTTPS 주소여야 합니다.');return}if(!t){alert('App Token을 입력해주세요.');return}ssSet(SESSION_RELAY_URL,u);ssSet(SESSION_RELAY_TOKEN,t);ui.relayTokenInput.value='';readCredentials();alert('공통 음성 설정은 수정하지 않고 현재 탭에만 적용했습니다.')}
+function clearOverrides(){ssSet(SESSION_PRIMARY,'');ssSet(SESSION_RELAY_URL,'');ssSet(SESSION_RELAY_TOKEN,'');ui.apiKeyInput.value='';ui.relayTokenInput.value='';readCredentials()}
+$('swapBtn').addEventListener('click',swapDirection);ui.input.addEventListener('input',()=>ui.count.textContent=String(ui.input.value.length));ui.input.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')translateText()});$('translateBtn').addEventListener('click',translateText);$('retryBtn').addEventListener('click',translateText);$('micBtn').addEventListener('click',toggleVoice);$('speakBtn').addEventListener('click',()=>speakOutput(false));$('copyBtn').addEventListener('click',copyOutput);$('largeBtn').addEventListener('click',()=>{if(!state.lastOutput)return;ui.fsText.textContent=state.lastOutput;ui.fullscreen.classList.add('show')});$('fsClose').addEventListener('click',()=>ui.fullscreen.classList.remove('show'));ui.fullscreen.addEventListener('click',e=>{if(e.target===ui.fullscreen)ui.fullscreen.classList.remove('show')});$('verifyToggle').addEventListener('click',()=>{const open=ui.verifyWrap.classList.toggle('open');ui.verifyToggle.textContent=(open?'▾':'▸')+' 의미확인'});$('clearHistory').addEventListener('click',()=>{if(confirm('이 일반대화 앱의 최근 기록을 모두 지울까요?')){state.history=[];saveHistory();renderHistory()}});ui.history.addEventListener('click',e=>{const b=e.target.closest('[data-history-id]');if(b)loadHistoryItem(b.dataset.historyId)});$('settingsBtn').addEventListener('click',()=>ui.setupCard.classList.toggle('show'));$('saveKeyBtn').addEventListener('click',saveSessionPrimary);$('reloadCommonBtn').addEventListener('click',()=>{clearOverrides();readCredentials()});$('testKeyBtn').addEventListener('click',testKey);$('saveSttBtn').addEventListener('click',saveSessionRelay);$('testSttBtn').addEventListener('click',testStt);$('clearOverridesBtn').addEventListener('click',clearOverrides);$('diagnosticBtn').addEventListener('click',openDiagnostic);$('soundToggleBtn').addEventListener('click',()=>setAutoSound(!state.autoSound));$('coupleAppBtn').addEventListener('click',()=>{location.href=siblingPath('wife')});window.addEventListener('keydown',e=>{if(e.key==='Escape')ui.fullscreen.classList.remove('show')});window.addEventListener('pagehide',()=>{abortRuns();voiceCancel(true);stopTtsPlayback()});document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')void checkForUpdate()});
+state.history=readHistory().slice(0,50);state.autoSound=lsGet(AUTO_SOUND_KEY)!=='0';setAutoSound(state.autoSound);readCredentials();renderHistory();applyDirection();$('versionBadge').textContent=APP_VERSION;ui.footerStatus.textContent=`${deploymentLabel()} · GENERAL CONVERSATION · no role assumptions`;void checkForUpdate();setInterval(checkForUpdate,UPDATE_CHECK_MS);console.info('[GENERAL]',APP_VERSION,BUILD_ID,'loaded',MODEL,deploymentLabel());
 </script>
 </body>
 </html>
