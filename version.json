@@ -1,9 +1,10 @@
 {
-  "version": "G1.0.0-alpha2",
+  "version": "G1.0.0-alpha3",
   "channel": "general-test",
-  "stage": "text-translation-backtranslation",
+  "stage": "text-translation-backtranslation-chirp3-stt",
   "model": "gemini-3.6-flash",
-  "stt": false,
+  "stt": "google-chirp-3",
+  "sttAudio": "16kHz-mono-PCM16-linear-resample",
   "tts": false,
   "updated": "2026-09-17"
 }

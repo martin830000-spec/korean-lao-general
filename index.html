@@ -36,6 +36,8 @@ textarea:focus{border-color:#9aaaf2;box-shadow:0 0 0 3px #eef2ff}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .btn{border:0;border-radius:13px;min-height:48px;padding:10px 12px;font-weight:800;cursor:pointer}
 .btn.primary{background:var(--accent);color:#fff}.btn.secondary{background:#eef1f6;color:#263248}.btn:active{transform:translateY(1px)}
+.btn.recording{background:#b42318!important;color:#fff!important}.btn.processing{background:#7a5c00!important;color:#fff!important}.btn:disabled{opacity:.6;cursor:default;transform:none}
+.voice-status{display:none;margin-top:8px;padding:8px 10px;border-radius:11px;background:#f8f9fc;border:1px solid var(--line);font-size:11px;color:#59657b;line-height:1.45}.voice-status.show{display:block}
 .output-card{padding:14px;margin-bottom:10px}
 .output{min-height:118px;border-radius:14px;background:#f8faff;border:1px solid #e5eaff;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:22px;line-height:1.55;font-weight:700;word-break:break-word;white-space:pre-wrap}
 .output.empty{color:#98a2b3;font-size:14px;font-weight:600}
@@ -58,7 +60,7 @@ textarea:focus{border-color:#9aaaf2;box-shadow:0 0 0 3px #eef2ff}
 <div class="app">
   <header class="topbar">
     <div class="brand"><div class="logo">🌐</div><div class="title-wrap"><div class="title">한국어 ↔ 라오어 일반대화</div><div class="subtitle">현장 대화용 독립 테스트 앱</div></div></div>
-    <div style="display:flex;gap:6px;align-items:center"><button id="settingsBtn" class="badge" style="cursor:pointer">⚙ 설정</button><div class="badge">G1.0.0 α2</div></div>
+    <div style="display:flex;gap:6px;align-items:center"><button id="settingsBtn" class="badge" style="cursor:pointer">⚙ 설정</button><div class="badge">G1.0.0 α3</div></div>
   </header>
 
   <section class="card direction-card">
@@ -74,9 +76,10 @@ textarea:focus{border-color:#9aaaf2;box-shadow:0 0 0 3px #eef2ff}
     <div class="section-head"><div class="section-title" id="inputTitle">🇰🇷 한국어로 말할 내용</div><div class="charcount"><span id="count">0</span>/500</div></div>
     <textarea id="input" maxlength="500" placeholder="말하거나 직접 입력하세요."></textarea>
     <div class="actions">
-      <button class="btn secondary" id="micBtn">🎙️ 말하기</button>
+      <button class="btn secondary" id="micBtn">🎙️ 한국어 말하기</button>
       <button class="btn primary" id="translateBtn">번역하기</button>
     </div>
+    <div class="voice-status" id="voiceStatus"></div>
   </section>
 
   <section class="card output-card">
@@ -99,19 +102,31 @@ textarea:focus{border-color:#9aaaf2;box-shadow:0 0 0 3px #eef2ff}
 
 
   <section class="card" id="setupCard" style="padding:12px 14px;margin-bottom:10px;display:none">
-    <div class="section-head"><div class="section-title">Gemini 테스트 연결</div><div class="charcount" id="keyState">미설정</div></div>
-    <div style="font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:8px">α2는 GitHub 저장소에 비밀값을 넣지 않기 위해 이 브라우저 탭의 세션에만 Gemini API Key를 보관합니다. 페이지를 완전히 닫으면 다시 입력해야 합니다.</div>
+    <div class="section-head"><div class="section-title">테스트 연결 설정</div><div class="charcount" id="keyState">Gemini 미설정</div></div>
+    <div style="font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px">α3는 GitHub 저장소에 비밀값을 넣지 않습니다. Gemini API Key와 STT App Token은 이 브라우저 탭의 sessionStorage에만 보관되며 탭을 완전히 닫으면 사라집니다.</div>
+    <div style="font-size:11px;font-weight:800;margin-bottom:5px">Gemini 번역</div>
     <div style="display:grid;grid-template-columns:1fr auto;gap:8px">
       <input id="apiKeyInput" type="password" autocomplete="off" placeholder="Gemini API Key" style="min-width:0;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit">
       <button id="saveKeyBtn" class="btn primary" style="min-height:44px">적용</button>
     </div>
     <div style="display:flex;gap:8px;margin-top:8px">
       <button id="clearKeyBtn" class="btn secondary" style="min-height:40px;flex:1">키 지우기</button>
-      <button id="testKeyBtn" class="btn secondary" style="min-height:40px;flex:1">연결 테스트</button>
+      <button id="testKeyBtn" class="btn secondary" style="min-height:40px;flex:1">번역 연결 테스트</button>
     </div>
+    <div style="height:1px;background:var(--line);margin:12px 0"></div>
+    <div class="section-head" style="margin-bottom:6px"><div class="section-title">Google Chirp 3 STT Relay</div><div class="charcount" id="sttState">미설정</div></div>
+    <div style="display:grid;gap:7px">
+      <input id="relayUrlInput" type="url" inputmode="url" autocomplete="off" placeholder="STT Relay URL" style="min-width:0;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit">
+      <input id="relayTokenInput" type="password" autocomplete="off" placeholder="STT App Token" style="min-width:0;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit">
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button id="saveSttBtn" class="btn primary" style="min-height:40px;flex:1">STT 적용</button>
+      <button id="testSttBtn" class="btn secondary" style="min-height:40px;flex:1">STT 연결 테스트</button>
+    </div>
+    <div style="font-size:10px;color:var(--muted);line-height:1.45;margin-top:7px">기본 URL은 서울 Cloud Run입니다. 라오스에서 Cloudflare 경유가 필요하면 나중에 같은 칸에 Worker 주소를 넣을 수 있습니다. App Token은 파일에 저장하지 않습니다.</div>
   </section>
 
-  <div class="notice">현재 α2는 <b>일반대화 텍스트 번역 + 역번역 검증 단계</b>입니다. STT/TTS는 아직 연결하지 않았고, 기존 부부앱 V3.61.95 및 실서비스에는 어떤 변경도 하지 않습니다.</div>
+  <div class="notice">현재 α3는 <b>일반대화 텍스트 번역 + 역번역 + Google Chirp 3 STT 검증 단계</b>입니다. TTS는 아직 연결하지 않았고, 기존 부부앱 V3.61.95 및 실서비스에는 어떤 변경도 하지 않습니다.</div>
   <div class="status">GENERAL CONVERSATION TEST · <strong>no spouse-role assumptions</strong></div>
 </div>
 
@@ -122,12 +137,12 @@ textarea:focus{border-color:#9aaaf2;box-shadow:0 0 0 3px #eef2ff}
 
 <script>
 'use strict';
-const APP_VERSION='G1.0.0-alpha2';
+const APP_VERSION='G1.0.0-alpha3';
 const MODEL='gemini-3.6-flash';
 const GEMINI_URL=`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 const TRANSLATE_TIMEOUT_MS=14000;
 const BACK_TIMEOUT_MS=18000;
-const state={direction:'K2L',history:[],runId:0,controller:null,backController:null,apiKey:''};
+const state={direction:'K2L',history:[],runId:0,controller:null,backController:null,apiKey:'',relayUrl:'',relayToken:'',voice:null};
 const $=id=>document.getElementById(id);
 const ui={
   srcFlag:$('srcFlag'),srcName:$('srcName'),dstFlag:$('dstFlag'),dstName:$('dstName'),
@@ -177,11 +192,12 @@ function applyDirection(){
   const m=MODES[state.direction];
   ui.srcFlag.textContent=m.srcFlag;ui.srcName.textContent=m.srcName;ui.dstFlag.textContent=m.dstFlag;ui.dstName.textContent=m.dstName;
   ui.inputTitle.textContent=m.inputTitle;ui.outputTitle.textContent=m.outputTitle;ui.input.placeholder=m.placeholder;
+  if(!state.voice?.recording&&!state.voice?.processing)$('micBtn').textContent=state.direction==='K2L'?'🎙️ 한국어 말하기':'🎙️ 라오어 말하기';
   clearResult();
 }
 function abortRuns(){try{state.controller?.abort()}catch(_){} try{state.backController?.abort()}catch(_){} state.controller=null;state.backController=null;}
 function clearResult(){abortRuns();ui.output.textContent='번역 결과가 여기에 표시됩니다.';ui.output.classList.add('empty');ui.latency.textContent='대기';ui.verifyBody.textContent='번역 후 의미확인이 자동으로 준비됩니다.';ui.verifyWrap.classList.remove('open');ui.verifyToggle.textContent='▸ 의미확인';}
-function swapDirection(){state.runId++;abortRuns();state.direction=state.direction==='K2L'?'L2K':'K2L';ui.input.value='';ui.count.textContent='0';applyDirection();ui.input.focus({preventScroll:true});}
+function swapDirection(){voiceCancel(true);state.runId++;abortRuns();state.direction=state.direction==='K2L'?'L2K':'K2L';ui.input.value='';ui.count.textContent='0';applyDirection();ui.input.focus({preventScroll:true});}
 function addHistory(src,dst,back=''){state.history.unshift({dir:state.direction,src,dst,back,at:new Date()});state.history=state.history.slice(0,20);renderHistory();}
 function renderHistory(){
   if(!state.history.length){ui.history.className='history';ui.history.textContent='아직 대화가 없습니다.';return;}
@@ -191,7 +207,7 @@ function renderHistory(){
 function getSessionKey(){try{return sessionStorage.getItem('general_gemini_api_key_v1')||''}catch(_){return''}}
 function setSessionKey(v){try{if(v)sessionStorage.setItem('general_gemini_api_key_v1',v);else sessionStorage.removeItem('general_gemini_api_key_v1')}catch(_){} state.apiKey=v;updateKeyState();}
 function updateKeyState(){const ok=!!state.apiKey;ui.keyState.textContent=ok?'설정됨':'미설정';ui.keyState.style.color=ok?'#157347':'#b42318';}
-function ensureKey(){if(state.apiKey)return true;ui.setupCard.style.display='block';ui.apiKeyInput.focus();window.alert('α2 텍스트 번역 테스트를 위해 Gemini API Key를 먼저 설정해주세요. 키는 이 브라우저 탭의 세션에만 저장되며 GitHub 파일에는 저장되지 않습니다.');return false;}
+function ensureKey(){if(state.apiKey)return true;ui.setupCard.style.display='block';ui.apiKeyInput.focus();window.alert('α3 텍스트 번역 테스트를 위해 Gemini API Key를 먼저 설정해주세요. 키는 이 브라우저 탭의 세션에만 저장되며 GitHub 파일에는 저장되지 않습니다.');return false;}
 function extractGeminiText(data){
   const c=Array.isArray(data?.candidates)?data.candidates[0]:null;
   const parts=Array.isArray(c?.content?.parts)?c.content.parts:[];
@@ -207,6 +223,7 @@ async function geminiRequest(systemPrompt,userText,timeoutMs,controller){
   }finally{clearTimeout(timer)}
 }
 async function translateText(){
+  if(state.voice?.recording||state.voice?.processing){alert('음성입력을 먼저 끝낸 뒤 번역해주세요.');return}
   const source=ui.input.value.trim();if(!source){ui.input.focus();return}if(!ensureKey())return;
   const myRun=++state.runId;abortRuns();const started=performance.now();const dir=state.direction;
   const ctrl=new AbortController();state.controller=ctrl;
@@ -238,12 +255,44 @@ async function startBackTranslation(dir,translated,myRun){
   finally{if(myRun===state.runId)state.backController=null;}
 }
 async function testKey(){if(!ensureKey())return;const ctrl=new AbortController();const old=ui.keyState.textContent;ui.keyState.textContent='테스트 중';try{const t=await geminiRequest('Return only OK.','OK',8000,ctrl);ui.keyState.textContent=t.toUpperCase().includes('OK')?'연결 정상':'응답 확인';}catch(e){ui.keyState.textContent='연결 실패';window.alert('Gemini 연결 실패: '+(e?.message||e));}setTimeout(updateKeyState,1600);}
+
+// ---- G1.0.0-alpha3 · Google Chirp 3 STT ----
+const DEFAULT_STT_RELAY='https://lao-stt-relay-460077888071.asia-northeast3.run.app';
+const STT_RATE=16000,STT_FRAME=1600,STT_READY_MS=4500,STT_FINAL_MS=5500,STT_REST_MS=9000;
+function ssGet(k){try{return sessionStorage.getItem(k)||''}catch(_){return''}}
+function ssSet(k,v){try{if(v)sessionStorage.setItem(k,v);else sessionStorage.removeItem(k)}catch(_){}}
+function loadSttSettings(){state.relayUrl=(ssGet('general_stt_relay_url_v1')||DEFAULT_STT_RELAY).replace(/\/+$/,'');state.relayToken=ssGet('general_stt_app_token_v1');ui.relayUrlInput.value=state.relayUrl;updateSttState()}
+function updateSttState(){const ok=!!(state.relayUrl&&state.relayToken);ui.sttState.textContent=ok?'설정됨':'토큰 미설정';ui.sttState.style.color=ok?'#157347':'#b42318'}
+function ensureStt(){if(state.relayUrl&&state.relayToken)return true;ui.setupCard.style.display='block';ui.relayTokenInput.focus();alert('Chirp 3 STT 테스트를 위해 STT App Token을 먼저 설정해주세요. 토큰은 현재 탭의 sessionStorage에만 저장되며 GitHub 파일에는 들어가지 않습니다.');return false}
+function voiceLang(){return state.direction==='K2L'?'ko-KR':'lo-LA'}
+function setVoiceUi(kind,msg=''){const b=$('micBtn');b.classList.remove('recording','processing');b.disabled=false;if(kind==='recording'){b.classList.add('recording');b.textContent='⏹️ 음성입력 종료'}else if(kind==='processing'){b.classList.add('processing');b.textContent='⏳ 인식 중';b.disabled=true}else if(kind==='preparing'){b.classList.add('processing');b.textContent='⏳ 마이크 준비';b.disabled=true}else b.textContent=state.direction==='K2L'?'🎙️ 한국어 말하기':'🎙️ 라오어 말하기';ui.voiceStatus.textContent=msg||'';ui.voiceStatus.classList.toggle('show',!!msg)}
+function f32cat(a,b){if(!a?.length)return new Float32Array(b||0);if(!b?.length)return new Float32Array(a);const o=new Float32Array(a.length+b.length);o.set(a);o.set(b,a.length);return o}
+function i16cat(a,b){if(!a?.length)return new Int16Array(b||0);if(!b?.length)return new Int16Array(a);const o=new Int16Array(a.length+b.length);o.set(a);o.set(b,a.length);return o}
+function f32toi16(f){const o=new Int16Array(f.length);for(let i=0;i<f.length;i++){const s=Math.max(-1,Math.min(1,f[i]));o[i]=s<0?Math.round(s*32768):Math.round(s*32767)}return o}
+function resamplePush(v,input,flush=false){v.pending=f32cat(v.pending,input&&input.length?input:new Float32Array(0));const ratio=v.inputRate/STT_RATE,out=[];while(v.pos+1<v.pending.length){const i=Math.floor(v.pos),f=v.pos-i;out.push(v.pending[i]*(1-f)+v.pending[i+1]*f);v.pos+=ratio}if(flush&&v.pending.length){while(v.pos<v.pending.length){out.push(v.pending[Math.min(v.pending.length-1,Math.round(v.pos))]);v.pos+=ratio}}const drop=Math.min(v.pending.length,Math.floor(v.pos));if(drop>0){v.pending=v.pending.slice(drop);v.pos-=drop}if(flush){v.pending=new Float32Array(0);v.pos=0}return f32toi16(new Float32Array(out))}
+function concatParts(parts){let n=0;for(const p of parts)n+=p.length;const out=new Int16Array(n);let off=0;for(const p of parts){out.set(p,off);off+=p.length}return out}
+function wavBlob(pcm){const ab=new ArrayBuffer(44+pcm.length*2),v=new DataView(ab);let p=0;const s=x=>{for(let i=0;i<x.length;i++)v.setUint8(p++,x.charCodeAt(i))};s('RIFF');v.setUint32(p,36+pcm.length*2,true);p+=4;s('WAVE');s('fmt ');v.setUint32(p,16,true);p+=4;v.setUint16(p,1,true);p+=2;v.setUint16(p,1,true);p+=2;v.setUint32(p,16000,true);p+=4;v.setUint32(p,32000,true);p+=4;v.setUint16(p,2,true);p+=2;v.setUint16(p,16,true);p+=2;s('data');v.setUint32(p,pcm.length*2,true);p+=4;for(let i=0;i<pcm.length;i++,p+=2)v.setInt16(p,pcm[i],true);return new Blob([ab],{type:'audio/wav'})}
+function blob64(blob){return new Promise((resolve,reject)=>{const r=new FileReader();r.onerror=()=>reject(r.error||new Error('FILE_READ'));r.onload=()=>{const s=String(r.result||''),i=s.indexOf(',');resolve(i>=0?s.slice(i+1):s)};r.readAsDataURL(blob)})}
+function wsUrl(base){return String(base).replace(/^http:/i,'ws:').replace(/^https:/i,'wss:').replace(/\/+$/,'')+'/stream'}
+function voiceDisconnect(v){try{v.processor?.disconnect()}catch(_){}try{v.source?.disconnect()}catch(_){}try{v.silent?.disconnect()}catch(_){}try{for(const t of v.stream?.getTracks?.()||[])t.stop()}catch(_){}try{if(v.ctx&&v.ctx.state!=='closed')v.ctx.close()}catch(_){}v.processor=v.source=v.silent=v.stream=v.ctx=null}
+function voiceCloseWs(v,cancel=false){const w=v?.ws;v.ws=null;v.wsReady=false;if(!w)return;try{if(cancel&&w.readyState===WebSocket.OPEN)w.send(JSON.stringify({type:'cancel'}))}catch(_){}try{if(w.readyState===WebSocket.OPEN||w.readyState===WebSocket.CONNECTING)w.close(1000,cancel?'cancel':'client-close')}catch(_){}}
+function appendPcm(v,pcm){if(!pcm?.length)return;v.parts.push(pcm);v.sendPending=i16cat(v.sendPending,pcm);if(v.wsReady&&v.ws?.readyState===WebSocket.OPEN)flushFrames(v)}
+function sendFrame(v,pcm){if(!v.wsReady||v.ws?.readyState!==WebSocket.OPEN||!pcm.length)return;v.seq++;v.sent+=pcm.length;v.ws.send(JSON.stringify({type:'chunkMeta',seq:v.seq,clientGapMs:0,scheduleLagMs:0,audioEndMs:v.sent/STT_RATE*1000}));v.ws.send(pcm.buffer.slice(pcm.byteOffset,pcm.byteOffset+pcm.byteLength))}
+function flushFrames(v){while(v.sendPending.length>=STT_FRAME){const f=v.sendPending.slice(0,STT_FRAME);v.sendPending=v.sendPending.slice(STT_FRAME);sendFrame(v,f)}}
+function openVoiceWs(v){return new Promise(resolve=>{let settled=false,timer=null;const done=x=>{if(settled)return;settled=true;if(timer)clearTimeout(timer);resolve(!!x)};let ws;try{ws=new WebSocket(wsUrl(state.relayUrl))}catch(_){return done(false)}v.ws=ws;ws.binaryType='arraybuffer';timer=setTimeout(()=>{v.wsFailed=true;try{ws.close()}catch(_){}done(false)},STT_READY_MS);ws.onopen=()=>{if(v.cancelled)return;try{ws.send(JSON.stringify({type:'start',token:state.relayToken,languageCode:v.lang,sampleRate:16000,channels:1,bitsPerSample:16,frameMs:100,requestIndex:'general-'+Date.now()}))}catch(_){v.wsFailed=true;done(false)}};ws.onmessage=ev=>{let m;try{m=JSON.parse(String(ev.data||''))}catch(_){return}if(m.type==='ready'){v.wsReady=true;flushFrames(v);done(true)}else if(m.type==='done'){v.wsResult={ok:!!m.ok,transcript:String(m.transcript||'').trim()};v.wsDone?.(v.wsResult)}else if(m.type==='error'){v.wsFailed=true;v.wsError=String(m.grpcMessage||m.error||'STREAM_ERROR');done(false);v.wsDone?.({ok:false,error:v.wsError})}};ws.onerror=()=>{v.wsFailed=true;v.wsError='WEBSOCKET_ERROR';done(false);v.wsDone?.({ok:false,error:v.wsError})};ws.onclose=e=>{if(!v.cancelled&&!v.wsResult&&e.code!==1000){v.wsFailed=true;v.wsError='WEBSOCKET_CLOSE_'+e.code;v.wsDone?.({ok:false,error:v.wsError})}}})}
+async function restTranscribe(pcm,lang){const c=new AbortController(),timer=setTimeout(()=>c.abort(),STT_REST_MS);try{const audioBase64=await blob64(wavBlob(pcm));const res=await fetch(state.relayUrl.replace(/\/+$/,'')+'/transcribe',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json','X-App-Token':state.relayToken},body:JSON.stringify({audioBase64,mimeType:'audio/wav',languageCode:lang}),signal:c.signal,cache:'no-store'});const data=await res.json().catch(()=>({}));if(!res.ok)throw new Error(data?.error||('STT_HTTP_'+res.status));const t=String(data.transcript||data.text||'').trim();if(!t)throw new Error('STT_NO_TEXT');return t}finally{clearTimeout(timer)}}
+async function voiceStart(){if(!ensureStt())return;if(state.voice?.recording||state.voice?.processing)return;if(!navigator.mediaDevices?.getUserMedia){alert('이 브라우저에서는 마이크 입력을 사용할 수 없습니다.');return}const AC=window.AudioContext||window.webkitAudioContext;if(!AC){alert('이 브라우저에서는 Web Audio를 사용할 수 없습니다.');return}const v={recording:false,processing:false,cancelled:false,lang:voiceLang(),ctx:null,stream:null,source:null,processor:null,silent:null,inputRate:48000,pending:new Float32Array(0),pos:0,parts:[],sendPending:new Int16Array(0),ws:null,wsReady:false,wsFailed:false,wsError:'',wsResult:null,wsDone:null,seq:0,sent:0,started:Date.now()};state.voice=v;setVoiceUi('preparing','마이크와 Google Chirp 3 STT를 준비하고 있습니다.');try{try{v.ctx=new AC({latencyHint:'interactive'})}catch(_){v.ctx=new AC()}try{await v.ctx.resume()}catch(_){}v.stream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true,autoGainControl:true}});v.inputRate=Number(v.ctx.sampleRate||48000);v.source=v.ctx.createMediaStreamSource(v.stream);if(typeof v.ctx.createScriptProcessor!=='function')throw new Error('SCRIPT_PROCESSOR_UNSUPPORTED');v.processor=v.ctx.createScriptProcessor(2048,1,1);v.silent=v.ctx.createGain();v.silent.gain.value=0;v.processor.onaudioprocess=e=>{if(!v.recording||v.cancelled)return;appendPcm(v,resamplePush(v,new Float32Array(e.inputBuffer.getChannelData(0)),false))};v.source.connect(v.processor);v.processor.connect(v.silent);v.silent.connect(v.ctx.destination);v.recording=true;setVoiceUi('recording',v.lang==='ko-KR'?'🔴 한국어 듣는 중 · 말을 마치면 다시 누르세요.':'🔴 라오어 듣는 중 · 말을 마치면 다시 누르세요.');void openVoiceWs(v).then(ok=>{if(v.recording&&!ok)setVoiceUi('recording','🔴 듣는 중 · 스트리밍이 불안정해도 계속 말씀하세요. 종료 후 전체 녹음으로 복구합니다.')})}catch(e){voiceDisconnect(v);state.voice=null;setVoiceUi('idle');alert('음성입력 시작 실패: '+(e?.message||e))}}
+async function voiceStop(){const v=state.voice;if(!v?.recording)return;v.recording=false;v.processing=true;setVoiceUi('processing','⏳ 마지막 음성을 인식하고 있습니다.');try{appendPcm(v,resamplePush(v,new Float32Array(0),true));voiceDisconnect(v);const pcm=concatParts(v.parts);if(pcm.length<320)throw new Error('NO_PCM_CAPTURED');let transcript='';if(v.wsReady&&v.ws?.readyState===WebSocket.OPEN){if(v.sendPending.length){sendFrame(v,v.sendPending);v.sendPending=new Int16Array(0)}const p=new Promise(r=>{v.wsDone=r});try{v.ws.send(JSON.stringify({type:'end'}))}catch(_){}const r=await Promise.race([p,new Promise(r=>setTimeout(()=>r({ok:false,error:'FINAL_TIMEOUT'}),STT_FINAL_MS))]);if(r?.ok&&r.transcript)transcript=String(r.transcript).trim()}voiceCloseWs(v,false);let recovered=false;if(!transcript){recovered=true;transcript=await restTranscribe(pcm,v.lang)}transcript=String(transcript||'').replace(/\uFFFD/g,'').trim();if(!transcript)throw new Error('NO_TRANSCRIPT');ui.input.value=transcript.slice(0,500);ui.count.textContent=String(ui.input.value.length);ui.input.focus({preventScroll:true});setVoiceUi('idle',`${recovered?'✅ 음성인식 완료 · 전체 녹음 자동복구':'✅ 음성인식 완료'} · 입력문을 확인한 뒤 번역하세요.`);setTimeout(()=>{if(!state.voice?.recording&&!state.voice?.processing)setVoiceUi('idle')},6000)}catch(e){voiceCloseWs(v,true);setVoiceUi('idle','⚠️ 음성인식에 실패했습니다. 설정과 마이크 권한을 확인해주세요.');alert('STT 실패: '+(e?.message||e))}finally{v.processing=false;if(state.voice===v)state.voice=null}}
+function voiceCancel(silent=false){const v=state.voice;if(!v)return;v.cancelled=true;v.recording=false;v.processing=false;voiceDisconnect(v);voiceCloseWs(v,true);state.voice=null;setVoiceUi('idle');if(!silent)ui.voiceStatus.classList.remove('show')}
+async function toggleVoice(){const v=state.voice;if(v?.processing)return;if(v?.recording)return voiceStop();return voiceStart()}
+async function testStt(){if(!ensureStt())return;ui.sttState.textContent='테스트 중';const c=new AbortController(),timer=setTimeout(()=>c.abort(),6500);try{const res=await fetch(state.relayUrl.replace(/\/+$/,'')+'/health',{headers:{'Accept':'application/json','X-App-Token':state.relayToken},signal:c.signal,cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json().catch(()=>({}));ui.sttState.textContent='연결 정상';ui.sttState.style.color='#157347';alert('STT Relay 연결 정상'+(data?.version?' · '+data.version:''))}catch(e){ui.sttState.textContent='연결 실패';ui.sttState.style.color='#b42318';alert('STT Relay 연결 실패: '+(e?.message||e))}finally{clearTimeout(timer);setTimeout(updateSttState,1800)}}
+
 $('swapBtn').addEventListener('click',swapDirection);
 ui.input.addEventListener('input',()=>ui.count.textContent=String(ui.input.value.length));
 ui.input.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')translateText();});
 $('translateBtn').addEventListener('click',translateText);
-$('micBtn').addEventListener('click',()=>window.alert('α2에서는 STT를 아직 연결하지 않았습니다. 텍스트 번역 검증 후 Chirp 3를 연결합니다.'));
-$('speakBtn').addEventListener('click',()=>window.alert('α2에서는 TTS를 아직 연결하지 않았습니다. 텍스트 번역 검증 후 Azure TTS를 연결합니다.'));
+$('micBtn').addEventListener('click',toggleVoice);
+$('speakBtn').addEventListener('click',()=>window.alert('α3에서는 TTS를 아직 연결하지 않았습니다. STT 검증 후 Azure TTS를 연결합니다.'));
 $('largeBtn').addEventListener('click',()=>{if(ui.output.classList.contains('empty'))return;ui.fsText.textContent=ui.output.textContent;ui.fullscreen.classList.add('show');});
 $('fsClose').addEventListener('click',()=>ui.fullscreen.classList.remove('show'));
 ui.fullscreen.addEventListener('click',e=>{if(e.target===ui.fullscreen)ui.fullscreen.classList.remove('show')});
@@ -253,9 +302,11 @@ $('settingsBtn').addEventListener('click',()=>{ui.setupCard.style.display=ui.set
 $('saveKeyBtn').addEventListener('click',()=>{const k=ui.apiKeyInput.value.trim();if(!k){window.alert('API Key를 입력해주세요.');return}setSessionKey(k);ui.apiKeyInput.value='';window.alert('이 탭의 세션에만 적용했습니다. GitHub 파일에는 저장되지 않습니다.');});
 $('clearKeyBtn').addEventListener('click',()=>{setSessionKey('');ui.apiKeyInput.value='';});
 $('testKeyBtn').addEventListener('click',testKey);
+$('saveSttBtn').addEventListener('click',()=>{const u=ui.relayUrlInput.value.trim().replace(/\/+$/,''),t=ui.relayTokenInput.value.trim();if(!u||!/^https:\/\//i.test(u)){alert('HTTPS STT Relay URL을 입력해주세요.');return}if(!t){alert('STT App Token을 입력해주세요.');return}state.relayUrl=u;state.relayToken=t;ssSet('general_stt_relay_url_v1',u);ssSet('general_stt_app_token_v1',t);ui.relayTokenInput.value='';updateSttState();alert('STT 설정을 현재 탭 세션에만 적용했습니다.');});
+$('testSttBtn').addEventListener('click',testStt);
 window.addEventListener('keydown',e=>{if(e.key==='Escape')ui.fullscreen.classList.remove('show')});
-window.addEventListener('pagehide',abortRuns);
-state.apiKey=getSessionKey();updateKeyState();applyDirection();
+window.addEventListener('pagehide',()=>{abortRuns();voiceCancel(true)});
+state.apiKey=getSessionKey();updateKeyState();loadSttSettings();applyDirection();
 console.info('[GENERAL]',APP_VERSION,'loaded',MODEL);
 </script>
 </body>
