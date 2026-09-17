@@ -1,8 +1,8 @@
 {
-  "version": "G1.0.0-RC1.7",
-  "buildId": "20260918-RC1.7-UI-MANUAL-HISTORY-1",
+  "version": "G1.0.0-RC1.8",
+  "buildId": "20260918-RC1.8-AUTO-INTERPRET-COMPACT-1",
   "channel": "general-test",
-  "stage": "ui-manual-version-history-collapse",
+  "stage": "auto-interpreter-stt-minimal-correction-compact-fixed-quickbar",
   "model": "gemini-3.8-flash",
   "stt": "google-chirp-3",
   "tts": "azure-neural",
