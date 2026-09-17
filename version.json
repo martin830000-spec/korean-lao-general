@@ -1,11 +1,14 @@
 {
-  "version": "G1.0.0-RC1",
-  "buildId": "20260917-RC1-1",
+  "version": "G1.0.0-RC1.1",
+  "buildId": "20260917-RC1.1-1",
   "channel": "general",
-  "stage": "release-candidate",
+  "stage": "release-candidate-ui-link-patch",
   "model": "gemini-3.6-flash",
   "stt": "google-chirp-3",
-  "sttFallback": ["google-rest", "gemini-audio"],
+  "sttFallback": [
+    "google-rest",
+    "gemini-audio"
+  ],
   "tts": "azure",
   "updated": "2026-09-17"
 }
