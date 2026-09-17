@@ -1,10 +1,10 @@
 {
-  "version": "G1.0.0-RC1.3",
-  "buildId": "20260917-RC1.3-ENGINE-ALIGN-1",
+  "version": "G1.0.0-RC1.4",
+  "buildId": "20260918-RC1.4-MAIN-PARITY-1",
   "channel": "general-test",
-  "stage": "v36195-engine-aligned-general-conversation",
+  "stage": "v36195-main-behavior-parity-general-conversation",
   "model": "gemini-3.8-flash",
   "stt": "google-chirp-3",
   "tts": "azure-neural",
-  "updated": "2026-09-17"
+  "updated": "2026-09-18"
 }
