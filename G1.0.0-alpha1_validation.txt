@@ -1,0 +1,12 @@
+Korean-Lao General G1.0.0-alpha1 validation
+
+PASS - index version
+PASS - direction K2L
+PASS - direction L2K
+PASS - no relay token placeholder
+PASS - no spouse role code
+PASS - diagnostic version
+PASS - version json parses
+PASS - duplicate html ids
+
+RESULT: PASS
