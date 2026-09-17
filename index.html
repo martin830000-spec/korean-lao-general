@@ -58,7 +58,7 @@ textarea:focus{border-color:#9aaaf2;box-shadow:0 0 0 3px #eef2ff}
 <div class="app">
   <header class="topbar">
     <div class="brand"><div class="logo">🌐</div><div class="title-wrap"><div class="title">한국어 ↔ 라오어 일반대화</div><div class="subtitle">현장 대화용 독립 테스트 앱</div></div></div>
-    <div class="badge">G1.0.0 α1</div>
+    <div style="display:flex;gap:6px;align-items:center"><button id="settingsBtn" class="badge" style="cursor:pointer">⚙ 설정</button><div class="badge">G1.0.0 α2</div></div>
   </header>
 
   <section class="card direction-card">
@@ -88,7 +88,7 @@ textarea:focus{border-color:#9aaaf2;box-shadow:0 0 0 3px #eef2ff}
     </div>
     <div class="verify" id="verifyWrap">
       <button id="verifyToggle">▸ 의미확인</button>
-      <div class="verify-body" id="verifyBody">역번역은 다음 단계에서 연결합니다.</div>
+      <div class="verify-body" id="verifyBody">번역 후 의미확인이 자동으로 준비됩니다.</div>
     </div>
   </section>
 
@@ -97,7 +97,21 @@ textarea:focus{border-color:#9aaaf2;box-shadow:0 0 0 3px #eef2ff}
     <div class="history" id="history">아직 대화가 없습니다.</div>
   </section>
 
-  <div class="notice">현재 α1은 <b>UI·화자전환 구조 검증용</b>입니다. 기존 부부앱 V3.61.95, Cloud Run, Cloudflare, STT/TTS에는 어떤 변경도 하지 않습니다.</div>
+
+  <section class="card" id="setupCard" style="padding:12px 14px;margin-bottom:10px;display:none">
+    <div class="section-head"><div class="section-title">Gemini 테스트 연결</div><div class="charcount" id="keyState">미설정</div></div>
+    <div style="font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:8px">α2는 GitHub 저장소에 비밀값을 넣지 않기 위해 이 브라우저 탭의 세션에만 Gemini API Key를 보관합니다. 페이지를 완전히 닫으면 다시 입력해야 합니다.</div>
+    <div style="display:grid;grid-template-columns:1fr auto;gap:8px">
+      <input id="apiKeyInput" type="password" autocomplete="off" placeholder="Gemini API Key" style="min-width:0;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit">
+      <button id="saveKeyBtn" class="btn primary" style="min-height:44px">적용</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button id="clearKeyBtn" class="btn secondary" style="min-height:40px;flex:1">키 지우기</button>
+      <button id="testKeyBtn" class="btn secondary" style="min-height:40px;flex:1">연결 테스트</button>
+    </div>
+  </section>
+
+  <div class="notice">현재 α2는 <b>일반대화 텍스트 번역 + 역번역 검증 단계</b>입니다. STT/TTS는 아직 연결하지 않았고, 기존 부부앱 V3.61.95 및 실서비스에는 어떤 변경도 하지 않습니다.</div>
   <div class="status">GENERAL CONVERSATION TEST · <strong>no spouse-role assumptions</strong></div>
 </div>
 
@@ -108,18 +122,56 @@ textarea:focus{border-color:#9aaaf2;box-shadow:0 0 0 3px #eef2ff}
 
 <script>
 'use strict';
-const APP_VERSION='G1.0.0-alpha1';
-const state={direction:'K2L',history:[]};
+const APP_VERSION='G1.0.0-alpha2';
+const MODEL='gemini-3.6-flash';
+const GEMINI_URL=`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
+const TRANSLATE_TIMEOUT_MS=14000;
+const BACK_TIMEOUT_MS=18000;
+const state={direction:'K2L',history:[],runId:0,controller:null,backController:null,apiKey:''};
 const $=id=>document.getElementById(id);
 const ui={
   srcFlag:$('srcFlag'),srcName:$('srcName'),dstFlag:$('dstFlag'),dstName:$('dstName'),
   inputTitle:$('inputTitle'),outputTitle:$('outputTitle'),input:$('input'),count:$('count'),
   output:$('output'),latency:$('latency'),history:$('history'),verifyWrap:$('verifyWrap'),verifyToggle:$('verifyToggle'),verifyBody:$('verifyBody'),
-  fullscreen:$('fullscreen'),fsText:$('fsText')
+  fullscreen:$('fullscreen'),fsText:$('fsText'),setupCard:$('setupCard'),apiKeyInput:$('apiKeyInput'),keyState:$('keyState')
 };
 const MODES={
   K2L:{srcFlag:'🇰🇷',srcName:'한국어',dstFlag:'🇱🇦',dstName:'ພາສາລາວ',inputTitle:'🇰🇷 한국어로 말할 내용',outputTitle:'🇱🇦 상대방에게 보여줄 라오어',placeholder:'한국어로 말하거나 직접 입력하세요.'},
   L2K:{srcFlag:'🇱🇦',srcName:'ພາສາລາວ',dstFlag:'🇰🇷',dstName:'한국어',inputTitle:'🇱🇦 ເວົ້າພາສາລາວ / 라오어로 말할 내용',outputTitle:'🇰🇷 상대방에게 보여줄 한국어',placeholder:'ພິມ ຫຼື ເວົ້າພາສາລາວ...'}
+};
+const FORWARD_PROMPTS={
+K2L:`You are a high-precision Korean-to-Lao conversation translator for real-world face-to-face use.
+Translate ONLY the user's Korean sentence into natural Lao.
+Do not explain, annotate, quote, or add alternatives.
+Do not assume the listener's gender, age, family relationship, spouse status, job, or social role unless the source explicitly states it.
+Use a natural, polite, stranger-friendly Lao register by default, while preserving the source sentence's strength and intent.
+Preserve exactly: who does what to whom, negation, questions vs commands, permission/prohibition, requests, uncertainty, quantities, numbers, dates, times, prices, directions, places, names, food/drug/product names, and explicit relationship terms.
+Never convert a question into advice or a request into a command. Never soften or strengthen prohibitions or obligations.
+If the Korean omits a subject, do not invent husband/wife, man/woman, older/younger, or any other role.
+For proper nouns or unfamiliar foreign words, preserve their identity instead of replacing them with a guessed local equivalent.
+Return Lao translation only.`,
+L2K:`You are a high-precision Lao-to-Korean conversation translator for real-world face-to-face use.
+Translate ONLY the user's Lao sentence into natural Korean.
+Do not explain, annotate, quote, or add alternatives.
+Do not assume the speaker or listener's gender, age, family relationship, spouse status, job, or social role unless the source explicitly states it.
+Use natural polite Korean by default (generally 해요체) while preserving the source sentence's strength and intent.
+Preserve exactly: who does what to whom, negation, questions vs commands, permission/prohibition, requests, uncertainty, quantities, numbers, dates, times, prices, directions, places, names, food/drug/product names, and explicit relationship terms.
+Never convert a question into advice or a request into a command. Never soften or strengthen prohibitions or obligations.
+If Lao omits a subject, do not invent husband/wife, man/woman, older/younger, or any other role.
+For proper nouns or unfamiliar phonetic words, preserve their written identity rather than guessing another word.
+Return Korean translation only.`
+};
+const BACK_PROMPTS={
+K2L:`Back-translate the following Lao text into Korean for meaning verification.
+Use ONLY the Lao text as evidence. Do not reconstruct or guess the presumed original Korean.
+Preserve subject/object roles, negation, question/command/request force, permission/prohibition, uncertainty, numbers, times, prices, places, direction, proper nouns, food/drug/product names, and explicit relationship terms.
+Do not normalize suspicious wording into what you think it probably meant.
+Return one natural Korean sentence only, with no explanation.`,
+L2K:`Back-translate the following Korean text into Lao for meaning verification.
+Use ONLY the Korean text as evidence. Do not reconstruct or guess the presumed original Lao.
+Preserve subject/object roles, negation, question/command/request force, permission/prohibition, uncertainty, numbers, times, prices, places, direction, proper nouns, food/drug/product names, and explicit relationship terms.
+Do not normalize suspicious wording into what you think it probably meant.
+Return one natural Lao sentence only, with no explanation.`
 };
 function applyDirection(){
   const m=MODES[state.direction];
@@ -127,31 +179,84 @@ function applyDirection(){
   ui.inputTitle.textContent=m.inputTitle;ui.outputTitle.textContent=m.outputTitle;ui.input.placeholder=m.placeholder;
   clearResult();
 }
-function clearResult(){ui.output.textContent='번역 결과가 여기에 표시됩니다.';ui.output.classList.add('empty');ui.latency.textContent='대기';ui.verifyBody.textContent='역번역은 다음 단계에서 연결합니다.';ui.verifyWrap.classList.remove('open');ui.verifyToggle.textContent='▸ 의미확인';}
-function swapDirection(){state.direction=state.direction==='K2L'?'L2K':'K2L';ui.input.value='';ui.count.textContent='0';applyDirection();ui.input.focus({preventScroll:true});}
-function addHistory(src,dst){state.history.unshift({dir:state.direction,src,dst,at:new Date()});state.history=state.history.slice(0,20);renderHistory();}
+function abortRuns(){try{state.controller?.abort()}catch(_){} try{state.backController?.abort()}catch(_){} state.controller=null;state.backController=null;}
+function clearResult(){abortRuns();ui.output.textContent='번역 결과가 여기에 표시됩니다.';ui.output.classList.add('empty');ui.latency.textContent='대기';ui.verifyBody.textContent='번역 후 의미확인이 자동으로 준비됩니다.';ui.verifyWrap.classList.remove('open');ui.verifyToggle.textContent='▸ 의미확인';}
+function swapDirection(){state.runId++;abortRuns();state.direction=state.direction==='K2L'?'L2K':'K2L';ui.input.value='';ui.count.textContent='0';applyDirection();ui.input.focus({preventScroll:true});}
+function addHistory(src,dst,back=''){state.history.unshift({dir:state.direction,src,dst,back,at:new Date()});state.history=state.history.slice(0,20);renderHistory();}
 function renderHistory(){
   if(!state.history.length){ui.history.className='history';ui.history.textContent='아직 대화가 없습니다.';return;}
   ui.history.className='history';ui.history.innerHTML='';
   for(const h of state.history){const wrap=document.createElement('div');wrap.className='history-item';const meta=document.createElement('div');meta.className='history-meta';meta.textContent=`${h.dir==='K2L'?'🇰🇷 → 🇱🇦':'🇱🇦 → 🇰🇷'} · ${h.at.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;const s=document.createElement('div');s.className='history-src';s.textContent=h.src;const d=document.createElement('div');d.className='history-dst';d.textContent=h.dst;wrap.append(meta,s,d);ui.history.appendChild(wrap);}
 }
-function alphaNotice(kind){
-  const msg=kind==='translate'?'α1은 UI·화자전환 검증 단계입니다. 다음 단계에서 실제 Gemini 번역을 연결합니다.':kind==='mic'?'α1에서는 마이크를 아직 연결하지 않았습니다. 다음 단계에서 기존 Chirp 3 구조를 참고해 연결합니다.':'α1에서는 TTS를 아직 연결하지 않았습니다. 다음 단계에서 기존 Azure TTS 구조를 참고해 연결합니다.';
-  window.alert(msg);
+function getSessionKey(){try{return sessionStorage.getItem('general_gemini_api_key_v1')||''}catch(_){return''}}
+function setSessionKey(v){try{if(v)sessionStorage.setItem('general_gemini_api_key_v1',v);else sessionStorage.removeItem('general_gemini_api_key_v1')}catch(_){} state.apiKey=v;updateKeyState();}
+function updateKeyState(){const ok=!!state.apiKey;ui.keyState.textContent=ok?'설정됨':'미설정';ui.keyState.style.color=ok?'#157347':'#b42318';}
+function ensureKey(){if(state.apiKey)return true;ui.setupCard.style.display='block';ui.apiKeyInput.focus();window.alert('α2 텍스트 번역 테스트를 위해 Gemini API Key를 먼저 설정해주세요. 키는 이 브라우저 탭의 세션에만 저장되며 GitHub 파일에는 저장되지 않습니다.');return false;}
+function extractGeminiText(data){
+  const c=Array.isArray(data?.candidates)?data.candidates[0]:null;
+  const parts=Array.isArray(c?.content?.parts)?c.content.parts:[];
+  return parts.map(p=>typeof p?.text==='string'?p.text:'').join('').trim();
 }
+async function geminiRequest(systemPrompt,userText,timeoutMs,controller){
+  const timer=setTimeout(()=>{try{controller.abort()}catch(_){}},timeoutMs);
+  try{
+    const res=await fetch(GEMINI_URL,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':state.apiKey},body:JSON.stringify({system_instruction:{parts:[{text:systemPrompt}]},contents:[{role:'user',parts:[{text:userText}]}],generationConfig:{maxOutputTokens:1024,temperature:0,thinkingConfig:{thinkingLevel:'low',includeThoughts:false}}}),signal:controller.signal,cache:'no-store'});
+    let body=null;try{body=await res.json()}catch(_){body={}}
+    if(!res.ok){const msg=body?.error?.message||`HTTP ${res.status}`;throw Object.assign(new Error(msg),{status:res.status});}
+    const text=extractGeminiText(body);if(!text)throw new Error('빈 번역 결과');return text;
+  }finally{clearTimeout(timer)}
+}
+async function translateText(){
+  const source=ui.input.value.trim();if(!source){ui.input.focus();return}if(!ensureKey())return;
+  const myRun=++state.runId;abortRuns();const started=performance.now();const dir=state.direction;
+  const ctrl=new AbortController();state.controller=ctrl;
+  ui.output.textContent='번역 중…';ui.output.classList.remove('empty');ui.latency.textContent='처리 중';
+  ui.verifyBody.textContent='번역 완료 후 의미확인을 시작합니다.';ui.verifyWrap.classList.remove('open');ui.verifyToggle.textContent='▸ 의미확인';
+  $('translateBtn').disabled=true;
+  try{
+    const translated=await geminiRequest(FORWARD_PROMPTS[dir],source,TRANSLATE_TIMEOUT_MS,ctrl);
+    if(myRun!==state.runId)return;
+    const forwardMs=Math.round(performance.now()-started);
+    ui.output.textContent=translated;ui.output.classList.remove('empty');ui.latency.textContent=`${(forwardMs/1000).toFixed(2)}초`;
+    addHistory(source,translated,'');
+    state.controller=null;
+    void startBackTranslation(dir,translated,myRun);
+  }catch(e){
+    if(myRun!==state.runId||e?.name==='AbortError')return;
+    ui.output.textContent=`번역 실패: ${e?.status===400||e?.status===401||e?.status===403?'API Key 또는 Gemini 권한을 확인해주세요.':(e?.message||'알 수 없는 오류')}`;ui.output.classList.remove('empty');ui.latency.textContent='실패';
+  }finally{if(myRun===state.runId)$('translateBtn').disabled=false;}
+}
+async function startBackTranslation(dir,translated,myRun){
+  const ctrl=new AbortController();state.backController=ctrl;const started=performance.now();
+  ui.verifyBody.textContent='의미확인 중…';
+  try{
+    const back=await geminiRequest(BACK_PROMPTS[dir],translated,BACK_TIMEOUT_MS,ctrl);
+    if(myRun!==state.runId)return;
+    const ms=Math.round(performance.now()-started);ui.verifyBody.textContent=`${back}\n\n의미확인 ${(ms/1000).toFixed(2)}초`;
+    if(state.history[0]&&state.history[0].dst===translated)state.history[0].back=back;
+  }catch(e){if(myRun!==state.runId||e?.name==='AbortError')return;ui.verifyBody.textContent=`의미확인 실패: ${e?.message||'오류'}`;}
+  finally{if(myRun===state.runId)state.backController=null;}
+}
+async function testKey(){if(!ensureKey())return;const ctrl=new AbortController();const old=ui.keyState.textContent;ui.keyState.textContent='테스트 중';try{const t=await geminiRequest('Return only OK.','OK',8000,ctrl);ui.keyState.textContent=t.toUpperCase().includes('OK')?'연결 정상':'응답 확인';}catch(e){ui.keyState.textContent='연결 실패';window.alert('Gemini 연결 실패: '+(e?.message||e));}setTimeout(updateKeyState,1600);}
 $('swapBtn').addEventListener('click',swapDirection);
 ui.input.addEventListener('input',()=>ui.count.textContent=String(ui.input.value.length));
-$('translateBtn').addEventListener('click',()=>alphaNotice('translate'));
-$('micBtn').addEventListener('click',()=>alphaNotice('mic'));
-$('speakBtn').addEventListener('click',()=>alphaNotice('tts'));
+ui.input.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')translateText();});
+$('translateBtn').addEventListener('click',translateText);
+$('micBtn').addEventListener('click',()=>window.alert('α2에서는 STT를 아직 연결하지 않았습니다. 텍스트 번역 검증 후 Chirp 3를 연결합니다.'));
+$('speakBtn').addEventListener('click',()=>window.alert('α2에서는 TTS를 아직 연결하지 않았습니다. 텍스트 번역 검증 후 Azure TTS를 연결합니다.'));
 $('largeBtn').addEventListener('click',()=>{if(ui.output.classList.contains('empty'))return;ui.fsText.textContent=ui.output.textContent;ui.fullscreen.classList.add('show');});
 $('fsClose').addEventListener('click',()=>ui.fullscreen.classList.remove('show'));
 ui.fullscreen.addEventListener('click',e=>{if(e.target===ui.fullscreen)ui.fullscreen.classList.remove('show')});
 $('verifyToggle').addEventListener('click',()=>{const open=ui.verifyWrap.classList.toggle('open');ui.verifyToggle.textContent=(open?'▾':'▸')+' 의미확인';});
 $('clearHistory').addEventListener('click',()=>{state.history=[];renderHistory();});
+$('settingsBtn').addEventListener('click',()=>{ui.setupCard.style.display=ui.setupCard.style.display==='none'?'block':'none';if(ui.setupCard.style.display!=='none')ui.apiKeyInput.focus();});
+$('saveKeyBtn').addEventListener('click',()=>{const k=ui.apiKeyInput.value.trim();if(!k){window.alert('API Key를 입력해주세요.');return}setSessionKey(k);ui.apiKeyInput.value='';window.alert('이 탭의 세션에만 적용했습니다. GitHub 파일에는 저장되지 않습니다.');});
+$('clearKeyBtn').addEventListener('click',()=>{setSessionKey('');ui.apiKeyInput.value='';});
+$('testKeyBtn').addEventListener('click',testKey);
 window.addEventListener('keydown',e=>{if(e.key==='Escape')ui.fullscreen.classList.remove('show')});
-applyDirection();
-console.info('[GENERAL]',APP_VERSION,'loaded');
+window.addEventListener('pagehide',abortRuns);
+state.apiKey=getSessionKey();updateKeyState();applyDirection();
+console.info('[GENERAL]',APP_VERSION,'loaded',MODEL);
 </script>
 </body>
 </html>

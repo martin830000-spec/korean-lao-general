@@ -1,0 +1,15 @@
+GENERAL G1.0.0-alpha2 VALIDATION
+time=2026-09-17
+
+PASS - index JS syntax
+PASS - diagnostic JS syntax
+PASS - duplicate IDs
+PASS - K2L prompt
+PASS - L2K prompt
+PASS - backtranslation
+PASS - no spouse role literal in prompts
+PASS - embedded secret heuristic
+
+RESULT=PASS
+Scope: text translation + non-blocking backtranslation only; STT/TTS intentionally not connected.
+Security: no Gemini API key or relay token embedded; alpha2 accepts a Gemini key into sessionStorage for the current browser tab only.
