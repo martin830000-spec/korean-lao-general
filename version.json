@@ -1,8 +1,8 @@
 {
-  "version": "G1.0.0-RC1.1",
-  "buildId": "20260917-RC1.1-1",
+  "version": "G1.0.0-RC1.2",
+  "buildId": "20260917-RC1.2-1",
   "channel": "general",
-  "stage": "release-candidate-ui-link-patch",
+  "stage": "release-candidate-stt-history-ui-validation",
   "model": "gemini-3.6-flash",
   "stt": "google-chirp-3",
   "sttFallback": [
