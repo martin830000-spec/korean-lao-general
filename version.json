@@ -1,14 +1,10 @@
 {
-  "version": "G1.0.0-RC1.2",
-  "buildId": "20260917-RC1.2-1",
-  "channel": "general",
-  "stage": "release-candidate-stt-history-ui-validation",
-  "model": "gemini-3.6-flash",
+  "version": "G1.0.0-RC1.3",
+  "buildId": "20260917-RC1.3-ENGINE-ALIGN-1",
+  "channel": "general-test",
+  "stage": "v36195-engine-aligned-general-conversation",
+  "model": "gemini-3.8-flash",
   "stt": "google-chirp-3",
-  "sttFallback": [
-    "google-rest",
-    "gemini-audio"
-  ],
-  "tts": "azure",
+  "tts": "azure-neural",
   "updated": "2026-09-17"
 }
