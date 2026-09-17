@@ -1,8 +1,8 @@
 {
-  "version": "G1.0.0-RC1.5",
-  "buildId": "20260918-RC1.5-STT-UX-180VIEW-1",
+  "version": "G1.0.0-RC1.6",
+  "buildId": "20260918-RC1.6-VERIFY-NAV-1",
   "channel": "general-test",
-  "stage": "stt-keyboard-reset-rotated-large-view",
+  "stage": "verify-layout-simple-timing-nav-labels",
   "model": "gemini-3.8-flash",
   "stt": "google-chirp-3",
   "tts": "azure-neural",
