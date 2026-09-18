@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>General Translator G1.0.0-RC1.11 Diagnostic</title>
+<title>General Translator G1.0.0-RC1.12 Diagnostic</title>
 <style>
 :root{font-family:system-ui,-apple-system,"Segoe UI","Noto Sans Lao",sans-serif;color:#172033;background:#f6f8fc}
 *{box-sizing:border-box}body{margin:0;padding:20px}.wrap{max-width:820px;margin:0 auto}.card{background:#fff;border:1px solid #e1e6ef;border-radius:16px;padding:18px;box-shadow:0 4px 18px rgba(20,30,50,.05)}
@@ -15,15 +15,15 @@ pre{margin:0;min-height:260px;white-space:pre-wrap;overflow-wrap:anywhere;backgr
 </style>
 </head>
 <body><div class="wrap"><div class="card">
-<h1>G1.0.0-RC1.11 진단</h1>
-<p class="sub">일반대화/여행 번역앱 전용 · 비밀값은 화면에 출력하지 않습니다.</p>
+<h1>일반 통역앱 진단 · G1.0.0-RC1.12</h1>
+<p class="sub">통합 진단센터에서 연결되는 일반앱 점검 · 번역/UI/Relay 기본 상태를 확인합니다. 비밀값은 출력하지 않습니다.</p>
 <div class="row"><button id="selfBtn">자가검사 · ກວດຕົນເອງ</button><button id="relayBtn">Relay 확인 · ກວດ Relay</button><button id="geminiBtn">Gemini 직접 확인 · ກວດ Gemini</button><button id="allBtn" class="secondary">전체 확인 · ກວດທັງໝົດ</button></div>
 <pre id="out">대기</pre>
 <p class="note">이 진단기는 공통 1차 비밀번호와 공통 Relay 설정을 읽기만 합니다. 실서비스 데이터나 설정은 수정하지 않습니다. · ໜ້າກວດນີ້ອ່ານຄ່າເທົ່ານັ້ນ ແລະບໍ່ແກ້ໄຂຂໍ້ມູນບໍລິການ.</p>
 </div></div>
 <script>
 'use strict';
-const APP_VERSION='G1.0.0-RC1.11',BUILD_ID='20260918-RC1.11-QUALITY-PROMPT-1',MODEL='gemini-3.8-flash';
+const APP_VERSION='G1.0.0-RC1.12',BUILD_ID='20260918-RC1.12-DIRECTIONAL-UI-1',MODEL='gemini-3.8-flash';
 const PRIMARY_PASSWORD_STORAGE='translator_primary_password';
 const SHARED_RELAY_URL='unified_google_stt_relay_url',SHARED_RELAY_TOKEN='unified_google_stt_relay_token';
 const LEGACY_RELAY_URL='unified_google_stt_relay_url_v296',LEGACY_RELAY_TOKEN='unified_google_stt_relay_token_v296';

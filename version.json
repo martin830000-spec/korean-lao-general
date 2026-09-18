@@ -1,11 +1,11 @@
 {
-  "version": "G1.0.0-RC1.11",
-  "buildId": "20260918-RC1.11-QUALITY-PROMPT-1",
+  "version": "G1.0.0-RC1.12",
+  "buildId": "20260918-RC1.12-DIRECTIONAL-UI-1",
   "channel": "general-test",
-  "stage": "quality-prompt-minimal",
+  "stage": "directional-ui",
   "model": "gemini-3.8-flash",
   "stt": "google-chirp-3",
   "tts": "azure-neural",
   "updated": "2026-09-18",
-  "notes": "source-register preservation + clause/subject/temporal fidelity + single-choice output; no extra translation calls"
+  "notes": "direction-driven single-language UI; couple-app button moved above recent history; 5-button quickbar adds centered large-view; quality prompts unchanged from RC1.11"
 }
