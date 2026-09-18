@@ -1,8 +1,8 @@
 {
-  "version": "G1.0.0-RC1.9",
-  "buildId": "20260918-RC1.9-BILINGUAL-QUICKBAR-MANUAL-1",
+  "version": "G1.0.0-RC1.10",
+  "buildId": "20260918-RC1.10-MANUAL-RENEWAL-1",
   "channel": "general-test",
-  "stage": "bilingual-quickbar-manual-input-control-swap",
+  "stage": "manual-renewal-only",
   "model": "gemini-3.8-flash",
   "stt": "google-chirp-3",
   "tts": "azure-neural",
