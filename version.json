@@ -1,6 +1,6 @@
 {
-  "version": "G1.0.0-RC1.14",
-  "build": "20260918-RC1.14-UPDATEFIX-1",
-  "notes": "Fixes repeated auto-update reload/toast loop by accepting build/buildId and publishing both fields. UI/translation engine/prompts unchanged from RC1.13.",
-  "buildId": "20260918-RC1.14-UPDATEFIX-1"
+  "version": "G1.0.0-RC1.15",
+  "build": "20260918-RC1.15-GUIDE-ADMIN-1",
+  "notes": "Polished bilingual manual, wider manual button, and administrator settings button opens and scrolls to the settings area. RC1.14 update-loop fix and translation/STT/TTS core retained.",
+  "buildId": "20260918-RC1.15-GUIDE-ADMIN-1"
 }
