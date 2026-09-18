@@ -1,6 +1,6 @@
 {
-  "version": "G1.0.0-RC1.16",
-  "build": "20260918-RC1.16-INTEGRATED-ADMIN-GUIDE-1",
-  "notes": "통합 관리자센터 연결, 처음으로 버튼, 사용자용 상세 설명서 보강. RC1.14 업데이트 루프 수정 유지.",
-  "buildId": "20260918-RC1.16-INTEGRATED-ADMIN-GUIDE-1"
+  "version": "G1.0.0-RC1.17",
+  "build": "20260918-RC1.17-MODE-HANDOFF-1",
+  "notes": "본앱↔일반앱 전환 시 남편/아내 사용자와 K→L/L→K 방향을 양방향으로 이어받음. RC1.16 통합 관리자/상세 설명서 및 RC1.14 업데이트 루프 수정 유지.",
+  "buildId": "20260918-RC1.17-MODE-HANDOFF-1"
 }
