@@ -1,6 +1,6 @@
 {
-  "version": "G1.0.0-RC1.15",
-  "build": "20260918-RC1.15-GUIDE-ADMIN-1",
-  "notes": "Polished bilingual manual, wider manual button, and administrator settings button opens and scrolls to the settings area. RC1.14 update-loop fix and translation/STT/TTS core retained.",
-  "buildId": "20260918-RC1.15-GUIDE-ADMIN-1"
+  "version": "G1.0.0-RC1.16",
+  "build": "20260918-RC1.16-INTEGRATED-ADMIN-GUIDE-1",
+  "notes": "통합 관리자센터 연결, 처음으로 버튼, 사용자용 상세 설명서 보강. RC1.14 업데이트 루프 수정 유지.",
+  "buildId": "20260918-RC1.16-INTEGRATED-ADMIN-GUIDE-1"
 }
