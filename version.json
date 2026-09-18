@@ -1,11 +1,5 @@
 {
-  "version": "G1.0.0-RC1.12",
-  "buildId": "20260918-RC1.12-DIRECTIONAL-UI-1",
-  "channel": "general-test",
-  "stage": "directional-ui",
-  "model": "gemini-3.8-flash",
-  "stt": "google-chirp-3",
-  "tts": "azure-neural",
-  "updated": "2026-09-18",
-  "notes": "direction-driven single-language UI; couple-app button moved above recent history; 5-button quickbar adds centered large-view; quality prompts unchanged from RC1.11"
+  "version": "G1.0.0-RC1.13",
+  "build": "20260918-RC1.13-SINGLE-LANG-UI-1",
+  "notes": "Input-language-driven single-language UI; 5-slot quickbar with large-view; couple navigation above history; unified diagnostic link. Translation prompts/engine unchanged from RC1.12."
 }
