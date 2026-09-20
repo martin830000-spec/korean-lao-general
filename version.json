@@ -1,6 +1,6 @@
 {
-  "version": "G1.0.0-RC1.17",
-  "build": "20260918-RC1.17-MODE-HANDOFF-1",
-  "notes": "본앱↔일반앱 전환 시 남편/아내 사용자와 K→L/L→K 방향을 양방향으로 이어받음. RC1.16 통합 관리자/상세 설명서 및 RC1.14 업데이트 루프 수정 유지.",
-  "buildId": "20260918-RC1.17-MODE-HANDOFF-1"
+  "version": "G1.0.0-RC1.28",
+  "build": "20260920-RC1.28-RETRANSLATE-SUITE-SERVICE-1",
+  "buildId": "20260920-RC1.28-RETRANSLATE-SUITE-SERVICE-1",
+  "notes": "SERVICE 최초 일반 통역앱 배포. /korean-lao-general/ ↔ /wife/ 연결, 서비스용 저장키와 본앱 공유 최초 1회 업데이트 안내 적용. 번역/역번역/STT/TTS/저장/복사 코어는 TEST 확정판과 동일."
 }
