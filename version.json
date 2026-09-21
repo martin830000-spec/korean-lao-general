@@ -1,6 +1,6 @@
 {
-  "version": "V3.61.128",
-  "build": "20260922-V3.61.128-SERVICE-GENERAL-UX12",
-  "buildId": "20260922-V3.61.128-SERVICE-GENERAL-UX12",
-  "notes": "SERVICE UX12. 번역 전 빈 결과카드 숨김·번역 시작 시 표시, 설명서 스크린샷 최신화, V3.61.127 기능 유지."
+  "version": "V3.61.129",
+  "build": "20260922-V3.61.129-SERVICE-GENERAL-UX13",
+  "buildId": "20260922-V3.61.129-SERVICE-GENERAL-UX13",
+  "notes": "SERVICE UX13. 일반앱 하단 크게보기 제거 후 결과카드 우측 상단 전체지우기 오른쪽으로 이동. 기존 크게보기/회전/정방향 초기화 유지."
 }
