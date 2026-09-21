@@ -1,6 +1,6 @@
 {
-  "version": "V3.61.123",
-  "build": "20260922-V3.61.123-SERVICE-GENERAL-UX7",
-  "buildId": "20260922-V3.61.123-SERVICE-GENERAL-UX7",
-  "notes": "SERVICE 승격. 일반앱 상단 방향카드 제거/메인타이틀 방향표시, 방향별 단일언어 UI, 앱 복귀 자동통역·자동음성 상태 재동기화, TTS 로딩 재탭 취소를 유지하고 설명서를 현재 UI에 맞춤."
+  "version": "V3.61.124",
+  "build": "20260922-V3.61.124-SERVICE-GENERAL-UX8",
+  "buildId": "20260922-V3.61.124-SERVICE-GENERAL-UX8",
+  "notes": "SERVICE UX8. 결과 순서 번역→역번역→원문, 크게보기 정방향 기본+수동 회전, 일반앱 설명문 정리, 전역 버튼 글자 자동맞춤."
 }
