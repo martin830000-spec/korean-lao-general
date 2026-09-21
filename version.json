@@ -1,6 +1,6 @@
 {
-  "version": "V3.61.126",
-  "build": "20260922-V3.61.126-SERVICE-GENERAL-UX10",
-  "buildId": "20260922-V3.61.126-SERVICE-GENERAL-UX10",
-  "notes": "SERVICE UX10. 번역 시작 시 상단 결과 포커스, 공통 업데이트 seen-state, 상세내역 우상단 팝업 미리보기, UI/UX 회귀검수 보강."
+  "version": "V3.61.127",
+  "build": "20260922-V3.61.127-SERVICE-GENERAL-UX11",
+  "buildId": "20260922-V3.61.127-SERVICE-GENERAL-UX11",
+  "notes": "SERVICE UX11. 상단 음성출력/듣기 2분할, 긴 원문·입력 자동 높이, 입력/전체 지우기 우상단 배치, V3.61.126 회귀 기능 유지."
 }
