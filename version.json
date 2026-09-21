@@ -1,6 +1,6 @@
 {
-  "version": "G1.0.0-RC1.31",
-  "build": "20260920-RC1.31-MANUAL-TOPBAR-SERVICE-1",
-  "buildId": "20260920-RC1.31-MANUAL-TOPBAR-SERVICE-1",
-  "notes": "SERVICE UI/설명서 동기화 패치. 라오어 상단 버튼의 글자 크기·아이콘 간격·패딩을 조정해 좁은 화면 겹침을 보정하고, 한국어·라오어 설명서를 현재 하단 부부대화↔일반 통역 전환 UI에 맞춤. 번역·자동 의미확인·STT/TTS·프롬프트·네트워크·최근기록 코어는 변경하지 않음."
+  "version": "V3.61.123",
+  "build": "20260922-V3.61.123-SERVICE-GENERAL-UX7",
+  "buildId": "20260922-V3.61.123-SERVICE-GENERAL-UX7",
+  "notes": "SERVICE 승격. 일반앱 상단 방향카드 제거/메인타이틀 방향표시, 방향별 단일언어 UI, 앱 복귀 자동통역·자동음성 상태 재동기화, TTS 로딩 재탭 취소를 유지하고 설명서를 현재 UI에 맞춤."
 }
