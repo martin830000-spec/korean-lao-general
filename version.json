@@ -1,6 +1,6 @@
 {
-  "version": "V3.61.132",
-  "build": "20260922-V3.61.132-SERVICE-GENERAL-UX16",
-  "buildId": "20260922-V3.61.132-SERVICE-GENERAL-UX16",
-  "notes": "SERVICE UX16. SERVICE 페어 버전 동기화. 일반앱 기능·UI·설명서는 V3.61.131과 동일."
+  "version": "V3.61.133",
+  "build": "20260922-V3.61.133-SERVICE-GENERAL-UX17",
+  "buildId": "20260922-V3.61.133-SERVICE-GENERAL-UX17",
+  "notes": "SERVICE UX17. 일반앱 입력 지우기 버튼을 컴팩트하게 조정하고 자동업데이트 직후 최근 대화를 기본 접힘으로 복원."
 }
