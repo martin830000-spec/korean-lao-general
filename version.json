@@ -1,6 +1,6 @@
 {
-  "version": "V3.61.133",
-  "build": "20260922-V3.61.133-SERVICE-GENERAL-UX17",
-  "buildId": "20260922-V3.61.133-SERVICE-GENERAL-UX17",
-  "notes": "SERVICE UX17. 일반앱 입력 지우기 버튼을 컴팩트하게 조정하고 자동업데이트 직후 최근 대화를 기본 접힘으로 복원."
+  "version": "V3.61.142",
+  "build": "20260923-V3.61.142-SERVICE-GENERAL-MULTILANG-M1",
+  "buildId": "20260923-V3.61.142-SERVICE-GENERAL-MULTILANG-M1",
+  "notes": "V3.61.142 SERVICE: validated multilingual general interpreter promoted from TEST. SERVICE routes/storage/release/manual metadata synchronized; false update-sync BUILD_ID mismatch fixed. Translation/STT/TTS/Relay core unchanged; Cloud Run 3.7.17 unchanged."
 }
