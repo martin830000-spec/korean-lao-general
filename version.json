@@ -1,6 +1,6 @@
 {
-  "version": "V3.61.131",
-  "build": "20260922-V3.61.131-SERVICE-GENERAL-UX15",
-  "buildId": "20260922-V3.61.131-SERVICE-GENERAL-UX15",
-  "notes": "SERVICE UX15. 일반앱 설명서를 짧은 단계형 가이드로 리뉴얼하고 자동통역·음성출력·다시 듣기·크게보기 설명과 현재 화면 캡처를 반영. 기능 코어는 V3.61.130 유지."
+  "version": "V3.61.132",
+  "build": "20260922-V3.61.132-SERVICE-GENERAL-UX16",
+  "buildId": "20260922-V3.61.132-SERVICE-GENERAL-UX16",
+  "notes": "SERVICE UX16. SERVICE 페어 버전 동기화. 일반앱 기능·UI·설명서는 V3.61.131과 동일."
 }
