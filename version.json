@@ -1,6 +1,6 @@
 {
-  "version": "V3.61.142",
-  "build": "20260923-V3.61.142-SERVICE-GENERAL-MULTILANG-M1",
-  "buildId": "20260923-V3.61.142-SERVICE-GENERAL-MULTILANG-M1",
-  "notes": "V3.61.142 SERVICE: validated multilingual general interpreter promoted from TEST. SERVICE routes/storage/release/manual metadata synchronized; false update-sync BUILD_ID mismatch fixed. Translation/STT/TTS/Relay core unchanged; Cloud Run 3.7.17 unchanged."
+  "version": "V3.61.148 TEST",
+  "build": "20260924-V3.61.148-TEST-PROMPT-SPLIT-G148A",
+  "buildId": "20260924-V3.61.148-TEST-PROMPT-SPLIT-G148A",
+  "notes": "V3.61.148 TEST: Korean↔Lao general translation now uses a main-app-style external prompt-config split (G148A) with local-only REL/SPEECH/READ smart rules and independent back-translation prompts. Other-language prompt paths, STT/TTS, Cloud Run and relay/fallback are unchanged."
 }
