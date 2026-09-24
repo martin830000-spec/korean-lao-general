@@ -1,6 +1,6 @@
 {
-  "version": "V3.61.142",
-  "build": "20260923-V3.61.142-SERVICE-GENERAL-MULTILANG-M1",
-  "buildId": "20260923-V3.61.142-SERVICE-GENERAL-MULTILANG-M1",
-  "notes": "V3.61.142 SERVICE: validated multilingual general interpreter promoted from TEST. SERVICE routes/storage/release/manual metadata synchronized; false update-sync BUILD_ID mismatch fixed. Translation/STT/TTS/Relay core unchanged; Cloud Run 3.7.17 unchanged."
+  "version": "V3.61.165",
+  "build": "20260924-V3.61.165-SERVICE-USER-RETRY-POLICY",
+  "buildId": "20260924-V3.61.165-SERVICE-USER-RETRY-POLICY",
+  "notes": "V3.61.165 SERVICE: validated V3.61.165 TEST general interpreter promoted without translation-feature changes. G148A prompt-config, keyboard translate, translation/back-translation, STT/TTS and network paths remain unchanged; SERVICE navigation/storage/release metadata are synchronized."
 }
