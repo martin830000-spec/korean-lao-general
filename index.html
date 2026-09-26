@@ -308,7 +308,7 @@ body.unified-booting .shell,body.unified-booting #authScreen{visibility:hidden}
   </div>
   <div class="stage"><iframe id="generalFrame" class="mode-frame active" title="일상 다국어 통역" allow="microphone; autoplay; clipboard-write" data-loaded="0"></iframe><div id="loadingMask" class="loading-mask show">통역기를 여는 중...</div></div>
 </div>
-<textarea id="payload-general" hidden aria-hidden="true" tabindex="-1" data-kind="general" data-sha256="68eb58ed27f78ed7f0daa6c9615f6ea84631462438be84feaf91be2526491a25">&lt;!doctype html&gt;
+<textarea id="payload-general" hidden aria-hidden="true" tabindex="-1" data-kind="general" data-sha256="a980768a8abdbadfc4edc169d1c555538f840158dac06cfab39a84f575cbe6da">&lt;!doctype html&gt;
 &lt;html lang="ko"&gt;
 &lt;head&gt;
 &lt;meta charset="utf-8"&gt;
@@ -882,7 +882,7 @@ body.result-focus .output-card.ui-combined-result .ui-source-preview-text{color:
 &lt;script&gt;
 'use strict';
 const APP_VERSION='V3.61.179';
-const BUILD_ID='20260926-V3.61.179-SERVICE-STT-TTS-TELEMETRY-R1';
+const BUILD_ID='20260927-V3.61.179-SERVICE-DIAGNOSTIC-OPS-R2';
 const MODEL='gemini-3.8-flash';
 const GEMINI_URL=`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 const SEOUL_RELAY='https://lao-stt-relay-460077888071.asia-northeast3.run.app';
@@ -1344,7 +1344,7 @@ state.history=readHistory().slice(0,50);syncPersistentToggleStateFromStorage();r
 </textarea>
 <script>
 const GENERAL_VERSION="V3.61.179";
-const GENERAL_BUILD="20260926-V3.61.179-SERVICE-STT-TTS-TELEMETRY-R1";
+const GENERAL_BUILD="20260927-V3.61.179-SERVICE-DIAGNOSTIC-OPS-R2";
 const GENERAL_DISPLAY_VERSION=GENERAL_VERSION.replace(/\s+TEST$/,'');
 const shellVersionEl=document.getElementById('shellVersion');if(shellVersionEl)shellVersionEl.textContent=GENERAL_DISPLAY_VERSION;
 // V3.61.179 / G151A: prompt/version validation retained; no general live-call plumbing changes.
