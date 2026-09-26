@@ -1,6 +1,6 @@
 {
-  "version": "V3.61.165",
-  "build": "20260924-V3.61.165-SERVICE-USER-RETRY-POLICY",
-  "buildId": "20260924-V3.61.165-SERVICE-USER-RETRY-POLICY",
-  "notes": "V3.61.165 SERVICE: validated V3.61.165 TEST general interpreter promoted without translation-feature changes. G148A prompt-config, keyboard translate, translation/back-translation, STT/TTS and network paths remain unchanged; SERVICE navigation/storage/release metadata are synchronized."
+  "version": "V3.61.177",
+  "build": "20260926-V3.61.177-SERVICE-SEMANTIC-FIDELITY-R5",
+  "buildId": "20260926-V3.61.177-SERVICE-SEMANTIC-FIDELITY-R5",
+  "notes": "V3.61.177 SERVICE: validated V3.61.177 TEST general interpreter promoted without translation-feature changes. G151A is byte-identical to TEST; SERVICE version/navigation/storage/release metadata only are synchronized. STT/TTS, network and Cloud Run 3.7.18 are unchanged."
 }
