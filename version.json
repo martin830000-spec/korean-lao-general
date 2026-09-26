@@ -1,6 +1,6 @@
 {
-  "version": "V3.61.178",
-  "build": "20260926-V3.61.178-SERVICE-STT-TTS-TELEMETRY-R1",
-  "buildId": "20260926-V3.61.178-SERVICE-STT-TTS-TELEMETRY-R1",
-  "notes": "V3.61.178 SERVICE package sync for General. G151A and all General translation/STT/TTS/network logic remain unchanged; telemetry functional changes are limited to the couple app."
+  "version": "V3.61.179",
+  "build": "20260927-V3.61.179-SERVICE-DIAGNOSTIC-OPS-R2",
+  "buildId": "20260927-V3.61.179-SERVICE-DIAGNOSTIC-OPS-R2",
+  "notes": "V3.61.179 SERVICE: diagnostic operations R2. Usage dashboard/activity filtering, feature status + estimated E2E view, multilang General stress diagnostics and stale bulk-isolation self-test fix. Live translation/STT/TTS behavior and P159A/G151A are unchanged."
 }
